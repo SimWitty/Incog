@@ -1,0 +1,9 @@
+<StyleCopSettings Version="105">
+  <GlobalSettings>
+    <CollectionProperty Name="RecognizedWords">
+      <Value>cmdlet</Value>
+      <Value>cmdlets</Value>
+      <Value>Incog</Value>
+    </CollectionProperty>
+  </GlobalSettings>
+</StyleCopSettings>
