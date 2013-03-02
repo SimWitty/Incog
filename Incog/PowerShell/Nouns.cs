@@ -14,6 +14,7 @@ namespace Incog.PowerShell
     {
         // Covert Channels and Communications
         public const string Netcat = "Netcat";
+        public const string IncogPing = "IncogPing";
 
         // Steganography
     }

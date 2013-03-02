@@ -64,11 +64,16 @@
   <ItemGroup>
     <Compile Include="Messaging\TextMessage.cs" />
     <Compile Include="Messaging\TextMessageList.cs" />
+    <Compile Include="PowerShell\Commands\IncogCommand.cs" />
+    <Compile Include="PowerShell\Commands\ReceiveIncogPing.cs" />
     <Compile Include="PowerShell\Commands\ReceiveNetcatCommand.cs" />
+    <Compile Include="PowerShell\Commands\SendIncogPing.cs" />
     <Compile Include="PowerShell\Commands\SendNetcatCommand.cs" />
     <Compile Include="PowerShell\Nouns.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steganography\BitmapSteganography.cs" />
+    <Compile Include="Tools\ChannelTools.cs" />
+    <Compile Include="Tools\ConsoleTools.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

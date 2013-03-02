@@ -15,7 +15,7 @@ namespace Incog.PowerShell.Commands
     /// </summary>
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Receive,
-        Botori.PowerShell.Nouns.Netcat)]
+        Incog.PowerShell.Nouns.Netcat)]
     public class ReceiveNetcatCommand : System.Management.Automation.PSCmdlet
     {
         #region Properties
