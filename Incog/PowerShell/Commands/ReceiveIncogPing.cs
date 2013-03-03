@@ -37,22 +37,7 @@ namespace Incog.PowerShell.Commands
 
             // Initialize parameters and base Incog cmdlet components
             this.InitializeComponent();
-
-            // Open up the socket for packet capture
-            byte[] inValue = new byte[4] { 1, 0, 0, 0 };
-            byte[] outValue = new byte[4] { 1, 0, 0, 0 };
-
-            dirtysock = new Socket(this.LocalAddress.AddressFamily, SocketType.Raw, ProtocolType.IP);
-            dirtysock.Bind(new IPEndPoint(this.LocalAddress, 0));
-            dirtysock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.HeaderIncluded, true);
-            dirtysock.IOControl(IOControlCode.ReceiveAll, inValue, outValue);
-            dirtysock.BeginReceive(packet, 0, packet.Length, SocketFlags.None, new AsyncCallback(Socket_Receive), null);
-            packetCapturing = true;
-
-            // Sets the receive state of the event to nonsignaled, causing EndProcessing to block.
-            //receiving.Reset();
-            receiving = true;
-            
+                       
             // Invoke Interative Mode if selected
             if (this.Interactive) this.InteractiveMode();
         }
@@ -74,14 +59,32 @@ namespace Incog.PowerShell.Commands
             // Blocks until the transmission is complete and receiving is set.
             //receiving.WaitOne();
 
+            //do
+            //{
+            //    System.Threading.Thread.Sleep(500);
+            //    Console.Write(".");
+            //}
+            //while (receiving);
+
+
+            // Open up the socket for packet capture
+            byte[] inValue = new byte[4] { 1, 0, 0, 0 };
+            byte[] outValue = new byte[4] { 1, 0, 0, 0 };
+
+            dirtysock = new Socket(this.LocalAddress.AddressFamily, SocketType.Raw, ProtocolType.IP);
+            dirtysock.Bind(new IPEndPoint(this.LocalAddress, 0));
+            dirtysock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.HeaderIncluded, true);
+            dirtysock.IOControl(IOControlCode.ReceiveAll, inValue, outValue);
+            dirtysock.BeginReceive(packet, 0, packet.Length, SocketFlags.None, new AsyncCallback(Socket_Receive), null);
+
             do
             {
-                System.Threading.Thread.Sleep(500);
+                string line = Console.ReadLine();
+                if (line.ToLower() == "exit") break;
             }
-            while (receiving);
+            while (true);
 
-
-            // Close the socket.
+            // Close the packet capture socket
             packetCapturing = false;
             dirtysock.Close();
         }
@@ -118,6 +121,14 @@ namespace Incog.PowerShell.Commands
 
         private void Socket_Receive(IAsyncResult r)
         {
+            //System.IO.StreamWriter w = new System.IO.StreamWriter("testing.txt");
+            //w.WriteLine(DateTime.Now.ToShortTimeString());
+            //w.WriteLine("ping!");
+            //w.Close();
+            //return;
+
+            Console.WriteLine("Ping!");
+
             try
             {
                 int length = dirtysock.EndReceive(r);
