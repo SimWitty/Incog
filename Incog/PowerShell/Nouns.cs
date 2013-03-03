@@ -17,5 +17,8 @@ namespace Incog.PowerShell
         public const string IncogPing = "IncogPing";
 
         // Steganography
+
+        // Miscellaneous
+        public const string CryptRandom = "CryptRandom";
     }
 }

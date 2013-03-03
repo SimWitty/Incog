@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Messaging\TextMessage.cs" />
     <Compile Include="Messaging\TextMessageList.cs" />
+    <Compile Include="PowerShell\Commands\GetCryptRandom.cs" />
     <Compile Include="PowerShell\Commands\IncogCommand.cs" />
     <Compile Include="PowerShell\Commands\ReceiveIncogPing.cs" />
     <Compile Include="PowerShell\Commands\ReceiveNetcatCommand.cs" />

@@ -1,4 +1,4 @@
-﻿// <copyright file="BitmapSteganography.cs" company="J Wolfgang Goerlich (www.jwgoerlich.us)">
+﻿// <copyright file="BitmapSteganography.cs" company="SimWitty (http://www.simwitty.org)">
 //     Copyright © 2012 and distributed under the BSD license.
 // </copyright>
 
