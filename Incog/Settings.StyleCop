@@ -3,7 +3,9 @@
     <CollectionProperty Name="RecognizedWords">
       <Value>cmdlet</Value>
       <Value>cmdlets</Value>
+      <Value>cmdlet's</Value>
       <Value>Incog</Value>
+      <Value>Steganographic</Value>
     </CollectionProperty>
   </GlobalSettings>
   <Analyzers>

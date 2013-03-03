@@ -11,7 +11,7 @@ namespace Incog.PowerShell.Commands
     using Microsoft.PowerShell.Commands; // Microsoft.PowerShell.Commands.Utility
     
     /// <summary>
-    /// Hello World cmdlet used to test ideas and coding patterns.
+    /// Cmdlet for reading from network connections using TCP or UDP, inspired by Unix network utility (NC).
     /// </summary>
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Receive,
@@ -19,6 +19,21 @@ namespace Incog.PowerShell.Commands
     public class ReceiveNetcatCommand : System.Management.Automation.PSCmdlet
     {
         #region Properties
+
+        /// <summary>
+        /// Cmdlet's TCP client.
+        /// </summary>
+        private TcpClient client;
+
+        /// <summary>
+        /// Cmdlet's TCP listener.
+        /// </summary>
+        private TcpListener listener;
+
+        /// <summary>
+        /// Cmdlet's TCP stream.
+        /// </summary>
+        private NetworkStream stream;
         
         /// <summary>
         /// Gets or sets the IP address to send bytes to.
@@ -42,8 +57,8 @@ namespace Incog.PowerShell.Commands
         /// Gets or sets a value indicating the output encoding: String, Unicode, Byte, et cetera.
         /// </summary>
         [Parameter(Mandatory = false)]
-        public FileSystemCmdletProviderEncoding Encoding { private get; set; } 
-     
+        public FileSystemCmdletProviderEncoding Encoding { private get; set; }
+
         #endregion 
 
         #region Methods
@@ -90,19 +105,14 @@ namespace Incog.PowerShell.Commands
             if (this.TCP != 0)
             {
                 IPEndPoint target = new IPEndPoint(this.IPAddress, (int)this.TCP);
-                listener = new TcpListener(target);
-                listener.Start();
-                client = listener.AcceptTcpClient();
-                stream = client.GetStream();
+                this.listener = new TcpListener(target);
+                this.listener.Start();
+                this.client = this.listener.AcceptTcpClient();
+                this.stream = this.client.GetStream();
             }
-
 
             base.BeginProcessing();
         }
-
-        TcpClient client;
-        NetworkStream stream;
-        TcpListener listener;
 
         /// <summary>
         /// Provides a record-by-record processing functionality for the cmdlet.
@@ -120,7 +130,7 @@ namespace Incog.PowerShell.Commands
 
                     try
                     {
-                        length = stream.Read(data, 0, 4096);
+                        length = this.stream.Read(data, 0, 4096);
                     }
                     catch
                     {
@@ -131,7 +141,7 @@ namespace Incog.PowerShell.Commands
                     if (length == 0) break;
 
                     // Extract the receipt bytes from the TCP payload
-                    OutputObject(data, length);
+                    this.OutputObject(data, length);
                 }
             }
 
@@ -140,12 +150,12 @@ namespace Incog.PowerShell.Commands
                 byte[] data = new byte[4096];
                 IPEndPoint target = new IPEndPoint(this.IPAddress, (int)this.UDP);
                 UdpClient socket = new UdpClient(target);
-                IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
+                IPEndPoint sender = new IPEndPoint(System.Net.IPAddress.Any, 0);
 
                 while (true)
                 {
                     data = socket.Receive(ref sender);
-                    OutputObject(data, data.Length);
+                    this.OutputObject(data, data.Length);
                 }
             }
         }
@@ -157,9 +167,9 @@ namespace Incog.PowerShell.Commands
         {
             if (this.TCP != 0)
             {
-                stream.Close();
-                client.Close();
-                listener.Stop();
+                this.stream.Close();
+                this.client.Close();
+                this.listener.Stop();
             }
 
             base.EndProcessing();
@@ -183,6 +193,7 @@ namespace Incog.PowerShell.Commands
                     {
                         this.WriteObject(value[i]);
                     }
+
                     break;
 
                 case FileSystemCmdletProviderEncoding.String:

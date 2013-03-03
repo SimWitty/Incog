@@ -1,4 +1,8 @@
-﻿using System.Reflection;
+﻿// <copyright file="AssemblyInfo.cs" company="SimWitty (http://www.simwitty.org)">
+//     Copyright © 2013 and distributed under the BSD license.
+// </copyright>
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -32,5 +36,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.13.032.0")]
-[assembly: AssemblyFileVersion("0.13.032.0")]
+[assembly: AssemblyVersion("0.13.061.0")]
+[assembly: AssemblyFileVersion("0.13.061.0")]

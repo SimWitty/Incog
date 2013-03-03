@@ -14,33 +14,43 @@ namespace Incog.Tools
     /// </summary>
     public static class ConsoleTools
     {
-
+        /// <summary>
+        /// Get cmdlet attribute, based on type, using reflection.
+        /// </summary>
+        /// <typeparam name="T">Attribute type.</typeparam>
+        /// <param name="provider">Attribute provider.</param>
+        /// <returns>Return the attribute specified.</returns>
         public static T GetAttribute<T>(ICustomAttributeProvider provider) where T : Attribute
         {
             return GetAttribute<T>(provider, false);
         }
 
+        /// <summary>
+        /// Get cmdlet attribute, based on type, using reflection.
+        /// </summary>
+        /// <typeparam name="T">Attribute type.</typeparam>
+        /// <param name="provider">Attribute provider.</param>
+        /// <param name="inherit">If true, include inheritance classes.</param>
+        /// <returns>Return the attribute specified.</returns>
         public static T GetAttribute<T>(ICustomAttributeProvider provider, bool inherit) where T : Attribute
         {
-            T[] attrs = GetAttributes<T>(provider, inherit);
-
-            if (attrs == null || attrs.Length == 0)
-            {
-                return null;
-            }
-
-            return attrs[0];
+            T[] a = GetAttributes<T>(provider, inherit);
+            if (a == null || a.Length == 0) return null;
+            return a[0];
         }
 
+        /// <summary>
+        /// Get cmdlet attributes as an array, based on type, using reflection.
+        /// </summary>
+        /// <typeparam name="T">Attribute type.</typeparam>
+        /// <param name="provider">Attribute provider.</param>
+        /// <param name="inherit">If true, include inheritance classes.</param>
+        /// <returns>Return the attributes specified in an array.</returns>
         public static T[] GetAttributes<T>(ICustomAttributeProvider provider, bool inherit)
         {
-            object[] attrs = provider.GetCustomAttributes(typeof(T), inherit);
-
-            if (attrs.Length == 0)
-            {
-                return null;
-            }
-            return attrs as T[];
+            object[] a = provider.GetCustomAttributes(typeof(T), inherit);
+            if (a.Length == 0) return null;
+            return a as T[];
         }
 
         /// <summary>

@@ -12,13 +12,21 @@ namespace Incog.PowerShell
     [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Scope = "module", Justification = "Reviewed. The element names are self-explanatory.")]
     internal static class Nouns
     {
-        // Covert Channels and Communications
-        public const string Netcat = "Netcat";
+        // Channel commands -- Covert Channels and Communications
+        public const string IncogLookup = "IncogLookup";
+        public const string IncogNamedPipe = "IncogNamedPipe";
         public const string IncogPing = "IncogPing";
+        public const string Netcat = "Netcat";
 
-        // Steganography
-
+        // Media commands -- Steganography and Files
+        public const string IncogAltDataStream = "IncogAltDataStream";
+        public const string IncogAudio = "IncogAudio"; // WaveFileSteganographyDemo
+        public const string IncogImage = "IncogImage"; // BitmapSteganographyDemo
+        public const string IncogMutex = "IncogMutex";
+        
         // Miscellaneous
         public const string CryptRandom = "CryptRandom";
+        public const string ShannonEntropy = "ShannonEntropy"; // EntropyCalculatorDemo, EntropySpoofDemo
+        public const string Shellcode = "Shellcode";
     }
 }

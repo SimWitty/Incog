@@ -13,7 +13,7 @@ namespace Incog.PowerShell.Commands
     using Microsoft.PowerShell.Commands; // System.Management.Automation.dll
 
     /// <summary>
-    /// Hello World cmdlet used to test ideas and coding patterns.
+    /// Cmdlet for writing to network connections using TCP or UDP, inspired by Unix network utility (NC).
     /// </summary>
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Send,
@@ -33,35 +33,45 @@ namespace Incog.PowerShell.Commands
         private System.Net.Sockets.TcpClient client;
 
         /// <summary>
+        /// Receive buffer, 
+        /// </summary>
+        private byte[] buffer;
+
+        /// <summary>
+        /// Current index within the buffer.
+        /// </summary>
+        private int index = 0;
+
+        /// <summary>
         /// Gets or sets the incoming byte stream.
         /// </summary>
         [Parameter(Position = 0, Mandatory = false, ValueFromPipeline = true)]
-        public IConvertible Input { private get; set; }
+        public IConvertible Input { get; set; }
 
         /// <summary>
-        /// Sets the Computer Name to send bytes to.
+        /// Gets or sets the Computer Name to send bytes to.
         /// This should be a fully qualified domain name.
         /// </summary>
         [Parameter(Position = 1, Mandatory = false)]
-        public string ComputerName { private get; set; }
+        public string ComputerName { get; set; }
 
         /// <summary>
         /// Gets or sets the IP address to send bytes to.
         /// </summary>
         [Parameter(Position = 1, Mandatory = false)]
-        public System.Net.IPAddress IPAddress { private get; set; }
+        public System.Net.IPAddress IPAddress { get; set; }
         
         /// <summary>
         /// Gets or sets the TCP port to send bytes to.
         /// </summary>
         [Parameter(Position = 2, Mandatory = false)]
-        public ushort TCP { private get; set; }
+        public ushort TCP { get; set; }
 
         /// <summary>
         /// Gets or sets the UDP port to send bytes to. 
         /// </summary>
         [Parameter(Position = 2, Mandatory = false)]
-        public ushort UDP { private get; set; }
+        public ushort UDP { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating the output encoding: String, Unicode, Byte, et cetera.
@@ -133,11 +143,11 @@ namespace Incog.PowerShell.Commands
             // Open the client and stream
             if (this.TCP != 0)
             {
-                client = new System.Net.Sockets.TcpClient();
+                this.client = new System.Net.Sockets.TcpClient();
                 IPEndPoint target = new IPEndPoint(this.IPAddress, (int)this.TCP);
-                client.Connect(target);
-                stream = client.GetStream();
-                buffer = new byte[client.SendBufferSize];
+                this.client.Connect(target);
+                this.stream = this.client.GetStream();
+                this.buffer = new byte[this.client.SendBufferSize];
             }
 
             if (this.TCP != 0 && this.Input == null)
@@ -151,16 +161,14 @@ namespace Incog.PowerShell.Commands
                 {
                     message = string.Format("Sending characters to {0} [{1}] TCP:{2}. ", this.ComputerName, this.IPAddress.ToString(), this.TCP.ToString());
                 }
+
                 if (this.Input == null) message += "End with CRLF.CRLF";
                 this.WriteObject(message);
             }
 
             base.BeginProcessing();
         }
-
-        byte[] buffer;
-        int index = 0;
-
+        
         /// <summary>
         /// Provides a record-by-record processing functionality for the cmdlet.
         /// </summary>
@@ -174,9 +182,8 @@ namespace Incog.PowerShell.Commands
                     if (line.Trim() == ".") break;
 
                     byte[] bytes = System.Text.Encoding.ASCII.GetBytes(line);
-                    stream.Write(bytes, 0, bytes.Length);
-                    stream.Flush();
-
+                    this.stream.Write(bytes, 0, bytes.Length);
+                    this.stream.Flush();
                 }
                 while (true);
             }
@@ -191,8 +198,8 @@ namespace Incog.PowerShell.Commands
                         for (int i = 0; i < incoming.Length; i += this.buffer.Length)
                         {
                             int length = Math.Min(this.buffer.Length, incoming.Length - i);
-                            Array.Copy(incoming, i, buffer, 0, length);
-                            stream.Write(this.buffer, 0, length);
+                            Array.Copy(incoming, i, this.buffer, 0, length);
+                            this.stream.Write(this.buffer, 0, length);
                         }
 
                         break;
@@ -216,42 +223,13 @@ namespace Incog.PowerShell.Commands
                         break;
                 }
 
-                if (index >= buffer.Length)
+                if (this.index >= this.buffer.Length)
                 {
-                    stream.Write(this.buffer, 0, this.buffer.Length);
-                    stream.Flush();
+                    this.stream.Write(this.buffer, 0, this.buffer.Length);
+                    this.stream.Flush();
                     this.index = 0;
                 }
             }
-
-            //if (this.udp != 0)
-            //{
-            //    System.Net.Sockets.UdpClient client = new System.Net.Sockets.UdpClient();
-            //    IPEndPoint target = new IPEndPoint(this.address, (int)this.udp);
-            //    client.Connect(target);
-
-            //    string buffer = string.Empty;
-            //    System.Management.Automation.Host.KeyInfo key;
-            //    const int CtrlC = 3;
-            //    const int Enter = 13;
-
-            //    do
-            //    {
-            //        key = this.Host.UI.RawUI.ReadKey(System.Management.Automation.Host.ReadKeyOptions.IncludeKeyDown | System.Management.Automation.Host.ReadKeyOptions.AllowCtrlC);
-            //        buffer += key.Character;
-
-            //        if ((int)key.Character == Enter)
-            //        {
-            //            this.bytes = Encoding.ASCII.GetBytes(buffer);
-            //            buffer = string.Empty;
-            //            client.Send(this.bytes, this.bytes.Length);
-            //        }
-
-            //    }
-            //    while ((int)key.Character != CtrlC);
-
-            //    client.Close();
-            //}
         }
 
         /// <summary>
@@ -261,15 +239,15 @@ namespace Incog.PowerShell.Commands
         {
             if (this.TCP != 0 && this.index > 0)
             {
-                stream.Write(buffer, 0, index);
-                stream.Flush();
+                this.stream.Write(this.buffer, 0, this.index);
+                this.stream.Flush();
             }
 
             // Close the client and stream
             if (this.TCP != 0)
             {
-                stream.Close();
-                client.Close();
+                this.stream.Close();
+                this.client.Close();
             }
 
             base.EndProcessing();

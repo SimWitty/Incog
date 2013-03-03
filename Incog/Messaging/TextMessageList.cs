@@ -1,5 +1,5 @@
 ﻿// <copyright file="TextMessageList.cs" company="SimWitty (http://www.simwitty.org)">
-//     Copyright © 2012 and distributed under the BSD license.
+//     Copyright © 2013 and distributed under the BSD license.
 // </copyright>
 
 namespace Incog.Messaging

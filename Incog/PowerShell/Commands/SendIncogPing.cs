@@ -18,7 +18,7 @@ namespace Incog.PowerShell.Commands
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Send,
         Incog.PowerShell.Nouns.IncogPing)]
-    public class SendIncogPing : IncogCommand
+    public class SendIncogPing : ChannelCommand
     {
         /// <summary>
         /// Provides a one-time, preprocessing functionality for the cmdlet.
@@ -61,7 +61,7 @@ namespace Incog.PowerShell.Commands
                 Console.Write("Tx: ");
                 string line = Console.ReadLine();
 
-                string sent = SendCovertMessage(line);
+                string sent = this.SendCovertMessage(line);
                 if (sent == string.Empty) 
                 {
                     Console.WriteLine("The message encoding failed and the message was not sent.");

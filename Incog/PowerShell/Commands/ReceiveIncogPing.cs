@@ -7,8 +7,8 @@ namespace Incog.PowerShell.Commands
     using System;
     using System.Management.Automation; // System.Management.Automation.dll
     using System.Net;
-    using System.Net.Sockets;
     using System.Net.NetworkInformation;
+    using System.Net.Sockets;
     using Incog.Tools; // ChannelTools, ConsoleTools
     using Microsoft.PowerShell.Commands; // System.Management.Automation.dll
     using SimWitty.Library.Core.Encrypting; // Cryptkeeper
@@ -20,13 +20,17 @@ namespace Incog.PowerShell.Commands
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Receive,
         Incog.PowerShell.Nouns.IncogPing)]
-    public class ReceiveIncogPing : IncogCommand
+    public class ReceiveIncogPing : ChannelCommand
     {
+        /// <summary>
+        /// Network socket for receiving packets.
+        /// </summary>
         private Socket dirtysock;
-        private byte[] packet = new byte[4096];
+
+        /// <summary>
+        /// True if currently capturing packets.
+        /// </summary>
         private bool packetCapturing = false;
-        //private System.Threading.AutoResetEvent receiving = new System.Threading.AutoResetEvent(false);
-        private bool receiving = false;
 
         /// <summary>
         /// Provides a one-time, preprocessing functionality for the cmdlet.
@@ -40,6 +44,32 @@ namespace Incog.PowerShell.Commands
                        
             // Invoke Interative Mode if selected
             if (this.Interactive) this.InteractiveMode();
+            
+            // Receiving messages endpoint
+            IPEndPoint bobEndpoint = new IPEndPoint(this.LocalAddress, 0);
+
+            // Sending messages endpoing
+            EndPoint aliceEndpoing = new IPEndPoint(this.RemoteAddress, 0) as EndPoint;
+            
+            // Open up the socket for packet capture
+            byte[] inValue = new byte[4] { 1, 0, 0, 0 };
+            byte[] outValue = new byte[4] { 1, 0, 0, 0 };
+
+            this.dirtysock = new Socket(bobEndpoint.Address.AddressFamily, SocketType.Raw, ProtocolType.Icmp);
+            this.dirtysock.Bind(bobEndpoint);
+            this.dirtysock.IOControl(IOControlCode.ReceiveAll, inValue, outValue);
+                    
+            byte[] packet = new byte[4096];
+            this.packetCapturing = true;
+
+            do
+            {
+                this.dirtysock.ReceiveFrom(packet, ref aliceEndpoing);
+                this.ReceiveCovertMessage(packet);
+            }
+            while (this.packetCapturing);
+
+            this.dirtysock.Close();
         }
 
         /// <summary>
@@ -56,37 +86,6 @@ namespace Incog.PowerShell.Commands
         /// </summary>
         protected override void EndProcessing()
         {
-            // Blocks until the transmission is complete and receiving is set.
-            //receiving.WaitOne();
-
-            //do
-            //{
-            //    System.Threading.Thread.Sleep(500);
-            //    Console.Write(".");
-            //}
-            //while (receiving);
-
-
-            // Open up the socket for packet capture
-            byte[] inValue = new byte[4] { 1, 0, 0, 0 };
-            byte[] outValue = new byte[4] { 1, 0, 0, 0 };
-
-            dirtysock = new Socket(this.LocalAddress.AddressFamily, SocketType.Raw, ProtocolType.IP);
-            dirtysock.Bind(new IPEndPoint(this.LocalAddress, 0));
-            dirtysock.SetSocketOption(SocketOptionLevel.IP, SocketOptionName.HeaderIncluded, true);
-            dirtysock.IOControl(IOControlCode.ReceiveAll, inValue, outValue);
-            dirtysock.BeginReceive(packet, 0, packet.Length, SocketFlags.None, new AsyncCallback(Socket_Receive), null);
-
-            do
-            {
-                string line = Console.ReadLine();
-                if (line.ToLower() == "exit") break;
-            }
-            while (true);
-
-            // Close the packet capture socket
-            packetCapturing = false;
-            dirtysock.Close();
         }
 
         /// <summary>
@@ -109,36 +108,21 @@ namespace Incog.PowerShell.Commands
         }
 
         /// <summary>
-        /// Receive incognito message via ping and, if successful, return the value.
+        /// Receive incognito message via ping and, if successful, put the value on the pipeline.
         /// </summary>
-        /// <param name="message">The Unicode character string to received over the covert channel.</param>
-        /// <returns>String.Empty if the message fails, otherwise, the decrypted message decoded.</returns>
-        private string ReceiveCovertMessage(string message)
+        /// <param name="rawPacket">The raw bytes that were captured.</param>
+        private void ReceiveCovertMessage(byte[] rawPacket)
         {
-            return string.Empty;
-        }
-
-
-        private void Socket_Receive(IAsyncResult r)
-        {
-            //System.IO.StreamWriter w = new System.IO.StreamWriter("testing.txt");
-            //w.WriteLine(DateTime.Now.ToShortTimeString());
-            //w.WriteLine("ping!");
-            //w.Close();
-            //return;
-
-            Console.WriteLine("Ping!");
-
             try
             {
-                int length = dirtysock.EndReceive(r);
-                IPv4Packet ipPacket = new IPv4Packet(packet, length);
+                int length = rawPacket.Length;
+                IPv4Packet packet = new IPv4Packet(rawPacket, length);
 
-                if (ipPacket.SourceAddress.Equals(this.RemoteAddress) && ipPacket.ProtocolType == Protocol.ICMP)
+                if (packet.SourceAddress.Equals(this.RemoteAddress) && packet.ProtocolType == Protocol.ICMP)
                 {
-                    ushort len = BitConverter.ToUInt16(new byte[] { ipPacket.Data[8], ipPacket.Data[9] }, 0);
+                    ushort len = BitConverter.ToUInt16(new byte[] { packet.Data[8], packet.Data[9] }, 0);
                     byte[] messageBytes = new byte[len];
-                    Array.Copy(ipPacket.Data, 10, messageBytes, 0, len);
+                    Array.Copy(packet.Data, 10, messageBytes, 0, len);
 
                     Cryptkeeper mycrypt = new Cryptkeeper(this.Passphrase);
                     byte[] checkedBytes = mycrypt.GetBytes(messageBytes, Cryptkeeper.Action.Decrypt);
@@ -146,25 +130,18 @@ namespace Incog.PowerShell.Commands
 
                     if (message.ToLower() == "exit")
                     {
-                        //receiving.Set();
-                        receiving = false;
+                        this.packetCapturing = false;
                         return;
                     }
 
                     if (this.Interactive)
                     {
-                        Console.WriteLine("{0} : {1}", ipPacket.SourceAddress.ToString(), message);
+                        Console.WriteLine("{0} : {1}", packet.SourceAddress.ToString(), message);
                     }
                     else
                     {
                         this.WriteObject(message);
                     }
-                }
-
-                if (packetCapturing)
-                {
-                    packet = new byte[4096];
-                    dirtysock.BeginReceive(packet, 0, packet.Length, SocketFlags.None, new AsyncCallback(Socket_Receive), null);
                 }
             }
             catch (ObjectDisposedException)
@@ -173,7 +150,7 @@ namespace Incog.PowerShell.Commands
             catch (Exception ex)
             {
                 this.WriteWarning(ex.ToString());
-            }
+            }   
         }
     }
 }

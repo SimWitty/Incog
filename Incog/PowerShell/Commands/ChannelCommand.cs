@@ -1,4 +1,4 @@
-﻿// <copyright file="IncogCommand.cs" company="SimWitty (http://www.simwitty.org)">
+﻿// <copyright file="ChannelCommand.cs" company="SimWitty (http://www.simwitty.org)">
 //     Copyright © 2013 and distributed under the BSD license.
 // </copyright>
 
@@ -8,16 +8,16 @@ namespace Incog.PowerShell.Commands
     using System.Management.Automation; // System.Management.Automation.dll
     using System.Net;
     using System.Net.NetworkInformation;
-    using System.Security.Principal;
     using System.Net.Sockets; // AddressFamily
+    using System.Security.Principal;
     using Incog.Tools; // ChannelTools, ConsoleTools
     using Microsoft.PowerShell.Commands; // System.Management.Automation.dll
     using SimWitty.Library.Core.Encrypting; // Cryptkeeper
 
     /// <summary>
-    /// Incog command is the base type that subsequent Incog cmdlet classes inherit from.
+    /// Channel command is the base type that subsequent Incog covert channel cmdlet classes inherit from.
     /// </summary>
-    public abstract partial class IncogCommand : System.Management.Automation.PSCmdlet
+    public abstract partial class ChannelCommand : System.Management.Automation.PSCmdlet
     {
         /// <summary>
         /// Gets or sets the local IP address (receive) for the covert channel.
@@ -69,14 +69,14 @@ namespace Incog.PowerShell.Commands
         {
             get
             {
-                CmdletAttribute attrribute = ConsoleTools.GetAttribute<CmdletAttribute>(GetType());
-                if (attrribute == null) return string.Empty;
-                else return string.Concat(attrribute.VerbName, "-", attrribute.NounName);
+                CmdletAttribute attribute = ConsoleTools.GetAttribute<CmdletAttribute>(GetType());
+                if (attribute == null) return string.Empty;
+                else return string.Concat(attribute.VerbName, "-", attribute.NounName);
             }
         }
 
         /// <summary>
-        /// Gets or sets the value indicating whether the code requires the user to have local administrator privileges.
+        /// Gets or sets a value indicating whether the code requires the user to have local administrator privileges.
         /// This is checked when InitializeComponent() is called.
         /// </summary>
         public bool RequireAdministrator { get; set; }
@@ -84,6 +84,7 @@ namespace Incog.PowerShell.Commands
         /// <summary>
         /// Update the screen with the parameters of the chat session.
         /// </summary>
+        /// <param name="mode">Communications mode (Alice/sending or Bob/receiving).</param>
         protected void PrintInteractiveMode(Incog.Tools.ChannelTools.CommunicationMode mode)
         {
             string line0 = string.Concat(this.CmdletName, ": Interactive mode");
@@ -155,10 +156,9 @@ namespace Incog.PowerShell.Commands
         private void CheckLocalAddressIsBound()
         {
             if (this.LocalAddress == IPAddress.Any || this.LocalAddress == IPAddress.IPv6Any) return;
-
-            IPAddress[] addressList =  Dns.GetHostEntry(Dns.GetHostName()).AddressList;
+            IPAddress[] addressList = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
             bool foundIPAddress = false;
-            
+
             for (int i = 0; i < addressList.Length; i++)
             {
                 if (addressList[i].AddressFamily == AddressFamily.InterNetwork || addressList[i].AddressFamily == AddressFamily.InterNetworkV6)
