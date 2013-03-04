@@ -123,6 +123,7 @@ namespace Incog.PowerShell.Commands
                     ushort len = BitConverter.ToUInt16(new byte[] { packet.Data[8], packet.Data[9] }, 0);
                     byte[] messageBytes = new byte[len];
                     Array.Copy(packet.Data, 10, messageBytes, 0, len);
+                    this.WriteVerbose(SimWitty.Library.Core.Encoding.Base16.ToBase16String(messageBytes));
 
                     Cryptkeeper mycrypt = new Cryptkeeper(this.Passphrase);
                     byte[] checkedBytes = mycrypt.GetBytes(messageBytes, Cryptkeeper.Action.Decrypt);

@@ -55,7 +55,7 @@ namespace Incog.PowerShell.Commands
         {
             // Update the screen with the parameters of the chat session
             this.PrintInteractiveMode(ChannelTools.CommunicationMode.Alice);
-
+            
             do
             {
                 Console.Write("Tx: ");
@@ -68,12 +68,8 @@ namespace Incog.PowerShell.Commands
                     continue;
                 }
 
-                // Echo the encrypted and encoded message to the screen
-                if (this.Echo)
-                {
-                    Console.WriteLine(sent);
-                    Console.WriteLine();
-                }
+                this.WriteVerbose(sent);
+                if (this.IsVerbose) Console.WriteLine();
 
                 if (line.ToLower() == "exit") break;
             } 
@@ -81,10 +77,10 @@ namespace Incog.PowerShell.Commands
         }
 
         /// <summary>
-        /// Send incognito message via ping and, if successful, return the value encoded in Base64.
+        /// Send incognito message via ping and, if successful, return the value encoded in Base16.
         /// </summary>
         /// <param name="message">The Unicode character string to send over the covert channel.</param>
-        /// <returns>String.Empty if the message fails, otherwise, the message encoded in Base64.</returns>
+        /// <returns>String.Empty if the message fails, otherwise, the message encoded in Base16.</returns>
         private string SendCovertMessage(string message)
         {
             // Encode the message 
@@ -121,7 +117,7 @@ namespace Incog.PowerShell.Commands
             }
 
             // Return the message encoded in Base64.
-            return System.Convert.ToBase64String(pingBytes);
+            return SimWitty.Library.Core.Encoding.Base16.ToBase16String(checkBytes);
         }
     }
 }

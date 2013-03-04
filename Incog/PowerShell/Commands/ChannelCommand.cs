@@ -57,12 +57,6 @@ namespace Incog.PowerShell.Commands
         public System.Management.Automation.SwitchParameter Interactive { get; set; }
 
         /// <summary>
-        /// Gets or sets the value indicating whether to echo the encrypted and encoded message to the screen.
-        /// </summary>
-        [Parameter(Mandatory = false)]
-        public System.Management.Automation.SwitchParameter Echo { get; set; }
-
-        /// <summary>
         /// Gets the cmdlet name in verb-noun format.
         /// </summary>
         public string CmdletName
@@ -80,6 +74,11 @@ namespace Incog.PowerShell.Commands
         /// This is checked when InitializeComponent() is called.
         /// </summary>
         public bool RequireAdministrator { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the cmdlet was started with -Verbose.
+        /// </summary>
+        public bool IsVerbose { get; set; }
         
         /// <summary>
         /// Update the screen with the parameters of the chat session.
@@ -121,6 +120,9 @@ namespace Incog.PowerShell.Commands
         /// </summary>
         protected void InitializeComponent()
         {
+            // 
+            this.IsVerbose = this.MyInvocation.BoundParameters.ContainsKey("Verbose");
+
             // Do all the preflight checks here.
             this.DefaultLocalAddressToAny();
             this.CheckLocalAddressIsBound();
