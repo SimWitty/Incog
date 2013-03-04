@@ -69,6 +69,7 @@
     <Compile Include="PowerShell\Commands\MediaCommand.cs" />
     <Compile Include="PowerShell\Commands\ReceiveIncogPing.cs" />
     <Compile Include="PowerShell\Commands\ReceiveNetcatCommand.cs" />
+    <Compile Include="PowerShell\Commands\SendIncogLookup.cs" />
     <Compile Include="PowerShell\Commands\SendIncogPing.cs" />
     <Compile Include="PowerShell\Commands\SendNetcatCommand.cs" />
     <Compile Include="PowerShell\Nouns.cs" />

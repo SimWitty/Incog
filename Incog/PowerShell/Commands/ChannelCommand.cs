@@ -120,7 +120,7 @@ namespace Incog.PowerShell.Commands
         /// </summary>
         protected void InitializeComponent()
         {
-            // 
+            // Set the value indicating the -Verbose switch was used
             this.IsVerbose = this.MyInvocation.BoundParameters.ContainsKey("Verbose");
 
             // Do all the preflight checks here.

@@ -58,13 +58,13 @@ namespace Incog.PowerShell.Commands
             
             do
             {
-                Console.Write("Tx: ");
+                Console.Write("{0}> ", this.CmdletName);
                 string line = Console.ReadLine();
 
                 string sent = this.SendCovertMessage(line);
                 if (sent == string.Empty) 
                 {
-                    Console.WriteLine("The message encoding failed and the message was not sent.");
+                    this.WriteWarning("The message encoding failed and the message was not sent.");
                     continue;
                 }
 
