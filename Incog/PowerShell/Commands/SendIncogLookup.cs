@@ -81,7 +81,9 @@ namespace Incog.PowerShell.Commands
             } 
             while (true);
         }
-        
+
+        ushort messageId = 0;
+
         /// <summary>
         /// Send incognito message via DNS and, if successful, return the value encoded in Base64.
         /// </summary>
@@ -90,7 +92,7 @@ namespace Incog.PowerShell.Commands
         private string SendCovertMessage(string message)
         {
             // Execute the covert channel
-            ushort messageId = 1;
+            messageId++;
             ushort fragmentId = 0;
 
             // Ensure the line is at least 16 Byte (128 bit) for encryption

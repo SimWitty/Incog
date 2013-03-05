@@ -56,21 +56,9 @@ namespace Incog.PowerShell.Commands
 
             do
             {
-                byte[] data = socket.Receive(ref aliceEndpoint);
-                Console.WriteLine(SimWitty.Library.Core.Encoding.Base16.ToBase16String(data));
-
-                IPv4Packet ip = new IPv4Packet(data, data.Length);
-
-                if (ip.SourceAddress.Equals(this.RemoteAddress) && ip.ProtocolType == Protocol.UDP)
-                {
-                    UDPPacket udp = new UDPPacket(ip.Data);
-
-                    if (udp.DestinationPort == 53)
-                    {
-                        ReceiveCovertMessage(new DnsPacket(ip.Data));
-                    }
-                }
-
+                byte[] payload = socket.Receive(ref aliceEndpoint);
+                string text = System.Text.Encoding.ASCII.GetString(payload);
+                ReceiveCovertMessage(text);
             }
             while (this.packetCapturing);
 
@@ -94,6 +82,15 @@ namespace Incog.PowerShell.Commands
         }
 
         /// <summary>
+        /// Stops processing records when the user stops the cmdlet asynchronously.
+        /// </summary>
+        protected override void StopProcessing()
+        {
+            this.packetCapturing = false;
+            base.StopProcessing();
+        }
+
+        /// <summary>
         /// Interactive Mode allows the user to key in message after message, and have the message sent over the covert channel.
         /// </summary>
         private void InteractiveMode()
@@ -105,25 +102,29 @@ namespace Incog.PowerShell.Commands
         /// <summary>
         /// Receive incognito messages via DNS and, if successful, return the value.
         /// </summary>
-        /// <param name="dns">The DNS message received over the covert channel.</param>
-        private void ReceiveCovertMessage(DnsPacket dns)
+        /// <param name="text">The DNS message received over the covert channel.</param>
+        private void ReceiveCovertMessage(string text)
         {
+            if (this.Stopping) return;
+
+            // Print the packet payload
+            this.WriteVerbose(text);
+
+            // Setup the start and stop values, clear the fragment
             char startChar = Convert.ToChar(62); // > = 62
             char stopChar = Convert.ToChar(3); // ♥ = 3
             string fragment = string.Empty;
 
-            string text = dns.Text;
-            this.WriteVerbose(text);
-
             // Pull out the fragment, which is a portion of the base32 encoded and AES encrypted message
-            int start = "www.".Length;
-            int stop = text.IndexOf(stopChar);
+            int start = text.IndexOf("www") + 4;
+            int stop = text.IndexOf(stopChar, start);
             int length = stop - start;
             if (length < 0) return;
 
             // If the string length is 0, then something's wrong, exit
             text = text.Substring(start, length);
             if (text.Length == 0) return;
+            this.WriteVerbose(text);
 
             // If the text is not a valid Base32 string, something's wrong, exit
             bool result = SimWitty.Library.Core.Encoding.Base32.TryParse(text, out fragment);
@@ -143,11 +144,13 @@ namespace Incog.PowerShell.Commands
                     if (text.Trim().ToLower() == "exit")
                     {
                         this.packetCapturing = false;
+                        this.WriteVerbose("----------------> exit <---------------------");
                         return;
                     }
 
                     if (this.Interactive)
                     {
+                        if (this.IsVerbose) Console.WriteLine();
                         Console.WriteLine("{0} > {1}", this.RemoteAddress.ToString(), text);
                     }
                     else
