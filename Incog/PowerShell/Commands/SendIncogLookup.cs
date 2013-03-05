@@ -9,20 +9,23 @@ namespace Incog.PowerShell.Commands
     using System.Management.Automation; // System.Management.Automation.dll
     using System.Net;
     using System.Net.NetworkInformation;
-    using Incog.Tools; // ChannelTools, ConsoleTools
     using Incog.Messaging; // TextMessage, TextMessageList
+    using Incog.Tools; // ChannelTools, ConsoleTools
     using Microsoft.PowerShell.Commands; // System.Management.Automation.dll
     using SimWitty.Library.Core.Encrypting; // Cryptkeeper
     using SimWitty.Library.Core.Tools; // ArrayTools
 
     /// <summary>
-    /// Send incognito messages over an DNS host (A) lookup covert channel.
+    /// Send incognito messages over a DNS host (A) lookup covert channel.
     /// </summary>
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Send,
         Incog.PowerShell.Nouns.IncogLookup)]
     public class SendIncogLookup : ChannelCommand
     {
+        /// <summary>
+        /// Running message list for sending and reassembling messages.
+        /// </summary>
         private TextMessageList messagelist = new TextMessageList();
 
         /// <summary>
@@ -66,8 +69,7 @@ namespace Incog.PowerShell.Commands
                 Console.Write("{0}> ", this.CmdletName);
                 string line = Console.ReadLine();
                 if (line == string.Empty) continue;
-
-
+                
                 string sent = this.SendCovertMessage(line);
                 if (sent == string.Empty)
                 {
@@ -76,8 +78,8 @@ namespace Incog.PowerShell.Commands
                 }
 
                 if (line.ToLower() == "exit") break;
-
-            } while (true);
+            } 
+            while (true);
         }
         
         /// <summary>
@@ -95,19 +97,20 @@ namespace Incog.PowerShell.Commands
             do
             {
                 message += " ";
-            } while (message.Length < 16);
+            } 
+            while (message.Length < 16);
 
             Cryptkeeper mycrypt = new Cryptkeeper(this.Passphrase);
             byte[] messageBytes = mycrypt.GetBytes(message, Cryptkeeper.Action.Encrypt);
 
             // Setup the DNS calls array, count, and index
             int hostIndex = 0;
-            int hostCount = (int)Math.Ceiling((decimal)messageBytes.Length / (decimal)messagelist.MaximumByteLength);
+            int hostCount = (int)Math.Ceiling((decimal)messageBytes.Length / (decimal)this.messagelist.MaximumByteLength);
             string[] hosts = new string[hostCount];
 
-            for (int i = 0; i < messageBytes.Length; i += messagelist.MaximumByteLength)
+            for (int i = 0; i < messageBytes.Length; i += this.messagelist.MaximumByteLength)
             {
-                ushort length = (ushort)Math.Min(messagelist.MaximumByteLength, messageBytes.Length - i);
+                ushort length = (ushort)Math.Min(this.messagelist.MaximumByteLength, messageBytes.Length - i);
 
                 byte[] msg = BitConverter.GetBytes(messageId);
                 byte[] frag = BitConverter.GetBytes(fragmentId);
@@ -141,7 +144,7 @@ namespace Incog.PowerShell.Commands
             // Send the fragments as DNS hosts using Nslookup
             for (int i = 0; i < hosts.Length; i++)
             {
-                ExecuteNslookup(hosts[i], this.RemoteAddress);
+                this.ExecuteNslookup(hosts[i], this.RemoteAddress);
             }
 
             return System.Convert.ToBase64String(messageBytes);
@@ -151,7 +154,7 @@ namespace Incog.PowerShell.Commands
         /// Execute DNS lookup using the nslookup tool, and redirect the output.
         /// </summary>
         /// <param name="hostname">The hostname to lookup. In a covert channel, this is the message.</param>
-        /// <param name="dnsserver">The DNS server to query. In a covert channel, this is the receipient.</param>
+        /// <param name="dnsserver">The DNS server to query. In a covert channel, this is the recipient.</param>
         private void ExecuteNslookup(string hostname, IPAddress dnsserver)
         {
             string command = string.Concat(

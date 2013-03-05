@@ -67,6 +67,7 @@
     <Compile Include="PowerShell\Commands\GetCryptRandom.cs" />
     <Compile Include="PowerShell\Commands\ChannelCommand.cs" />
     <Compile Include="PowerShell\Commands\MediaCommand.cs" />
+    <Compile Include="PowerShell\Commands\ReceiveIncogLookup.cs" />
     <Compile Include="PowerShell\Commands\ReceiveIncogPing.cs" />
     <Compile Include="PowerShell\Commands\ReceiveNetcatCommand.cs" />
     <Compile Include="PowerShell\Commands\SendIncogLookup.cs" />

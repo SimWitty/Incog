@@ -23,13 +23,10 @@
     </timestamps>
     <violations />
   </sourcecode>
-  <project key="2062728099">
-    <configuration>DEBUG;TRACE</configuration>
-  </project>
   <sourcecode name="TextMessage.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 11:53:40.692</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -52,7 +49,7 @@
   <sourcecode name="TextMessageList.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 11:53:49.932</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -75,7 +72,7 @@
   <sourcecode name="GetCryptRandom.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 11:34:12.991</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -98,8 +95,8 @@
   <sourcecode name="ReceiveIncogPing.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
-      <sourceFile>2013/03/03 17:12:45.330</sourceFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
+      <sourceFile>2013/03/04 08:42:00.583</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -121,8 +118,31 @@
   <sourcecode name="ReceiveNetcatCommand.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 13:17:41.675</sourceFile>
+      <parser>2013/01/11 11:37:58.000</parser>
+      <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2013/01/11 11:37:58.000</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2013/01/11 11:37:58.000</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2013/01/11 11:37:58.000</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2013/01/11 11:37:58.000</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2013/01/11 11:37:58.000</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2013/01/11 11:37:58.000</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations />
+  </sourcecode>
+  <sourcecode name="SendIncogLookup.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2013/01/11 11:37:58.000</styleCop>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
+      <sourceFile>2013/03/04 14:30:15.522</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -144,8 +164,8 @@
   <sourcecode name="SendIncogPing.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
-      <sourceFile>2013/03/03 12:44:21.633</sourceFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
+      <sourceFile>2013/03/04 10:19:17.221</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -167,7 +187,7 @@
   <sourcecode name="SendNetcatCommand.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 13:17:41.684</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -190,8 +210,8 @@
   <sourcecode name="Nouns.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
-      <sourceFile>2013/03/03 13:45:09.321</sourceFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
+      <sourceFile>2013/03/03 17:18:42.741</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -213,7 +233,7 @@
   <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 13:33:39.790</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -236,7 +256,7 @@
   <sourcecode name="BitmapSteganography.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 11:54:14.828</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -259,7 +279,7 @@
   <sourcecode name="ChannelTools.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/02 18:49:30.974</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -282,7 +302,7 @@
   <sourcecode name="ConsoleTools.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 12:51:32.386</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -305,8 +325,8 @@
   <sourcecode name="ChannelCommand.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
-      <sourceFile>2013/03/03 12:47:27.924</sourceFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
+      <sourceFile>2013/03/04 14:30:29.976</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
       <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>
@@ -328,7 +348,7 @@
   <sourcecode name="MediaCommand.cs" parser="StyleCop.CSharp.CsParser">
     <timestamps>
       <styleCop>2013/01/11 11:37:58.000</styleCop>
-      <settingsFile>2013/03/03 13:12:58.915</settingsFile>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
       <sourceFile>2013/03/03 12:29:43.322</sourceFile>
       <parser>2013/01/11 11:37:58.000</parser>
       <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
@@ -347,5 +367,80 @@
       <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
     </timestamps>
     <violations />
+  </sourcecode>
+  <project key="2062728099">
+    <configuration>DEBUG;TRACE</configuration>
+  </project>
+  <sourcecode name="ReceiveIncogLookup.cs" parser="StyleCop.CSharp.CsParser">
+    <timestamps>
+      <styleCop>2013/01/11 11:37:58.000</styleCop>
+      <settingsFile>2013/03/04 13:43:17.629</settingsFile>
+      <sourceFile>2013/03/04 15:00:06.513</sourceFile>
+      <parser>2013/01/11 11:37:58.000</parser>
+      <StyleCop.CSharp.DocumentationRules>2013/01/11 11:37:58.000</StyleCop.CSharp.DocumentationRules>
+      <StyleCop.CSharp.DocumentationRules.FilesHashCode>1157575881</StyleCop.CSharp.DocumentationRules.FilesHashCode>
+      <StyleCop.CSharp.LayoutRules>2013/01/11 11:37:58.000</StyleCop.CSharp.LayoutRules>
+      <StyleCop.CSharp.LayoutRules.FilesHashCode>0</StyleCop.CSharp.LayoutRules.FilesHashCode>
+      <StyleCop.CSharp.MaintainabilityRules>2013/01/11 11:37:58.000</StyleCop.CSharp.MaintainabilityRules>
+      <StyleCop.CSharp.MaintainabilityRules.FilesHashCode>0</StyleCop.CSharp.MaintainabilityRules.FilesHashCode>
+      <StyleCop.CSharp.NamingRules>2013/01/11 11:37:58.000</StyleCop.CSharp.NamingRules>
+      <StyleCop.CSharp.NamingRules.FilesHashCode>0</StyleCop.CSharp.NamingRules.FilesHashCode>
+      <StyleCop.CSharp.OrderingRules>2013/01/11 11:37:58.000</StyleCop.CSharp.OrderingRules>
+      <StyleCop.CSharp.OrderingRules.FilesHashCode>0</StyleCop.CSharp.OrderingRules.FilesHashCode>
+      <StyleCop.CSharp.ReadabilityRules>2013/01/11 11:37:58.000</StyleCop.CSharp.ReadabilityRules>
+      <StyleCop.CSharp.ReadabilityRules.FilesHashCode>0</StyleCop.CSharp.ReadabilityRules.FilesHashCode>
+      <StyleCop.CSharp.SpacingRules>2013/01/11 11:37:58.000</StyleCop.CSharp.SpacingRules>
+      <StyleCop.CSharp.SpacingRules.FilesHashCode>0</StyleCop.CSharp.SpacingRules.FilesHashCode>
+    </timestamps>
+    <violations>
+      <violation namespace="StyleCop.CSharp.LayoutRules" rule="ClosingCurlyBracketsMustNotBePrecededByBlankLine" ruleCheckId="SA1508">
+        <context>A closing curly bracket must not be preceded by a blank line.</context>
+        <line>74</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to ReceiveCovertMessage must begin with the 'this.', 'base.', 'object.' or 'ReceiveIncogLookup.' or 'ChannelCommand.' prefix to indicate the intended method call. </context>
+        <line>70</line>
+        <index>2763</index>
+        <endIndex>2782</endIndex>
+        <startLine>70</startLine>
+        <startColumn>25</startColumn>
+        <endLine>70</endLine>
+        <endColumn>44</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="ElementParameterDocumentationMustMatchElementParameters" ruleCheckId="SA1612">
+        <context>The param tags in the documentation header must match the element's parameter list.</context>
+        <line>110</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.DocumentationRules" rule="VoidReturnValueMustNotBeDocumented" ruleCheckId="SA1617">
+        <context>The documentation header should not contain a returns tag, since the element has no return value.</context>
+        <line>110</line>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to messagelist must begin with the 'this.', 'base.', 'object.' or 'ReceiveIncogLookup.' or 'ChannelCommand.' prefix to indicate the intended method call. </context>
+        <line>132</line>
+        <index>5209</index>
+        <endIndex>5219</endIndex>
+        <startLine>132</startLine>
+        <startColumn>13</startColumn>
+        <endLine>132</endLine>
+        <endColumn>23</endColumn>
+        <warning>False</warning>
+      </violation>
+      <violation namespace="StyleCop.CSharp.ReadabilityRules" rule="PrefixCallsCorrectly" ruleCheckId="SA1126">
+        <context>The call to messagelist must begin with the 'this.', 'base.', 'object.' or 'ReceiveIncogLookup.' or 'ChannelCommand.' prefix to indicate the intended method call. </context>
+        <line>135</line>
+        <index>5344</index>
+        <endIndex>5354</endIndex>
+        <startLine>135</startLine>
+        <startColumn>45</startColumn>
+        <endLine>135</endLine>
+        <endColumn>55</endColumn>
+        <warning>False</warning>
+      </violation>
+    </violations>
   </sourcecode>
 </stylecopresultscache>

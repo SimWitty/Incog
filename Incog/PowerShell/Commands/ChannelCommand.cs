@@ -76,7 +76,7 @@ namespace Incog.PowerShell.Commands
         public bool RequireAdministrator { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether the cmdlet was started with -Verbose.
+        /// Gets or sets a value indicating whether the cmdlet was started with -Verbose.
         /// </summary>
         public bool IsVerbose { get; set; }
         

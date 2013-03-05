@@ -96,16 +96,6 @@ namespace Incog.PowerShell.Commands
             // Update the screen with the parameters of the chat session
             this.PrintInteractiveMode(ChannelTools.CommunicationMode.Bob);
         }
-        
-        /// <summary>
-        /// Send incognito message via ping and, if successful, return the value encoded in Base64.
-        /// </summary>
-        /// <param name="message">The Unicode character string to send over the covert channel.</param>
-        /// <returns>String.Empty if the message fails, otherwise, the encrypted message encoded in Base64.</returns>
-        private string SendCovertMessage(string message)
-        {
-            return string.Empty;
-        }
 
         /// <summary>
         /// Receive incognito message via ping and, if successful, put the value on the pipeline.
@@ -129,7 +119,7 @@ namespace Incog.PowerShell.Commands
                     byte[] checkedBytes = mycrypt.GetBytes(messageBytes, Cryptkeeper.Action.Decrypt);
                     string message = ChannelTools.DecodeString(checkedBytes);
 
-                    if (message.ToLower() == "exit")
+                    if (message.Trim().ToLower() == "exit")
                     {
                         this.packetCapturing = false;
                         return;
@@ -137,7 +127,7 @@ namespace Incog.PowerShell.Commands
 
                     if (this.Interactive)
                     {
-                        Console.WriteLine("{0} : {1}", packet.SourceAddress.ToString(), message);
+                        Console.WriteLine("{0} > {1}", packet.SourceAddress.ToString(), message);
                     }
                     else
                     {
