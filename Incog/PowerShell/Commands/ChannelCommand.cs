@@ -124,9 +124,11 @@ namespace Incog.PowerShell.Commands
             this.IsVerbose = this.MyInvocation.BoundParameters.ContainsKey("Verbose");
 
             // Do all the preflight checks here.
+            this.CheckWindowVersion();
             this.DefaultLocalAddressToAny();
             this.CheckLocalAddressIsBound();
             this.CheckLocalAddressRemoteAddressFamily();
+            this.CheckWindowsFirewall();
             this.CheckIfAdministrator();
         }
 
@@ -204,6 +206,33 @@ namespace Incog.PowerShell.Commands
                     throw new ApplicationException(error);
                 }
             }
+        }
+
+        /// <summary>
+        /// Check the Windows Operating System version.
+        /// http://msdn.microsoft.com/en-us/library/ms724832(v=vs.85).aspx
+        /// </summary>
+        private void CheckWindowVersion()
+        {
+            string error = string.Format("The {0} cmdlet has not been tested on this OS. Please use Windows 7, Windows 8, Windows Server 2008 R2, or Windows Server 2012.", this.CmdletName);
+            
+            Version windows = Environment.OSVersion.Version;
+            if (windows.Major < 6) throw new ApplicationException(error);
+            if (windows.Minor < 1) throw new ApplicationException(error);
+        }
+
+        /// <summary>
+        /// Check the Windows Firewall and warn the user if it is enabled.
+        /// </summary>
+        private void CheckWindowsFirewall()
+        {
+            bool firewalled = SimWitty.Library.Interop.WindowsFirewall.IsEnabled();
+            if (firewalled)
+            {
+                string warning = string.Format("The {0} cmdlet has not been tested with the Windows firewall enabled. You may see inconsistent results.", this.CmdletName);
+                this.WriteWarning(warning);
+            }
+
         }
     }
 }
