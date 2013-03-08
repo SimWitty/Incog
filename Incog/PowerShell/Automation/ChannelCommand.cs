@@ -33,12 +33,6 @@ namespace Incog.PowerShell.Automation
         public IPAddress RemoteAddress { get; set; }
 
         /// <summary>
-        /// Gets or sets the encryption pass phrase. 
-        /// </summary>
-        [Parameter(Position = 2, Mandatory = true)]
-        public System.Security.SecureString Passphrase { get; set; }
-
-        /// <summary>
         /// Gets or sets the Unicode text to transmit over the covert channel.
         /// </summary>
         [Parameter(Position = 2, Mandatory = false)]

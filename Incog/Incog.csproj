@@ -65,6 +65,8 @@
     <Compile Include="Messaging\TextMessage.cs" />
     <Compile Include="Messaging\TextMessageList.cs" />
     <Compile Include="PowerShell\Automation\BaseCommand.cs" />
+    <Compile Include="PowerShell\Commands\GetIncogImageCommand.cs" />
+    <Compile Include="PowerShell\Commands\SetIncogImageCommand.cs" />
     <Compile Include="PowerShell\Commands\TestFileInfoCommand.cs" />
     <Compile Include="PowerShell\Commands\GetCryptRandom.cs" />
     <Compile Include="PowerShell\Automation\ChannelCommand.cs" />
@@ -81,7 +83,11 @@
     <Compile Include="Tools\ChannelTools.cs" />
     <Compile Include="Tools\ConsoleTools.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Samples\SteganographySampleImage.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -48,6 +48,7 @@ namespace Incog.PowerShell.Automation
             base.InitializeComponent();
 
             // Do all the preflight checks here.
+            ExpandAndVerifyPath();
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace Incog.PowerShell.Automation
             string networkPath = "Microsoft.PowerShell.Core\\FileSystem::\\\\";
 
             // If the string starts with .\ or is not immediately found, expand to the local file path.
-            if (StringTools.StartsWith(filename, ".\\") || !File.Exists(filename))
+            if (StringTools.StartsWith(filename, ".") || !File.Exists(filename))
             {
                 string[] values = this.Path.ToString().Split('\\');
                 string name = values[values.Length - 1].Trim();

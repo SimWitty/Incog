@@ -15,6 +15,12 @@ namespace Incog.PowerShell.Automation
     public abstract partial class BaseCommand : System.Management.Automation.PSCmdlet
     {
         /// <summary>
+        /// Gets or sets the encryption pass phrase. 
+        /// </summary>
+        [Parameter(Mandatory = true)]
+        public System.Security.SecureString Passphrase { get; set; }
+
+        /// <summary>
         /// Gets the cmdlet name in verb-noun format.
         /// </summary>
         public string CmdletName
