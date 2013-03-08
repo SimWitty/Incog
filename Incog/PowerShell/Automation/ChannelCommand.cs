@@ -2,7 +2,7 @@
 //     Copyright © 2013 and distributed under the BSD license.
 // </copyright>
 
-namespace Incog.PowerShell.Commands
+namespace Incog.PowerShell.Automation
 {
     using System;
     using System.Management.Automation; // System.Management.Automation.dll
@@ -17,7 +17,7 @@ namespace Incog.PowerShell.Commands
     /// <summary>
     /// Channel command is the base type that subsequent Incog covert channel cmdlet classes inherit from.
     /// </summary>
-    public abstract partial class ChannelCommand : System.Management.Automation.PSCmdlet
+    public abstract partial class ChannelCommand : Incog.PowerShell.Automation.BaseCommand
     {
         /// <summary>
         /// Gets or sets the local IP address (receive) for the covert channel.
@@ -55,30 +55,6 @@ namespace Incog.PowerShell.Commands
         /// </summary>
         [Parameter(Mandatory = false)]
         public System.Management.Automation.SwitchParameter Interactive { get; set; }
-
-        /// <summary>
-        /// Gets the cmdlet name in verb-noun format.
-        /// </summary>
-        public string CmdletName
-        {
-            get
-            {
-                CmdletAttribute attribute = ConsoleTools.GetAttribute<CmdletAttribute>(GetType());
-                if (attribute == null) return string.Empty;
-                else return string.Concat(attribute.VerbName, "-", attribute.NounName);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the code requires the user to have local administrator privileges.
-        /// This is checked when InitializeComponent() is called.
-        /// </summary>
-        public bool RequireAdministrator { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the cmdlet was started with -Verbose.
-        /// </summary>
-        public bool IsVerbose { get; set; }
         
         /// <summary>
         /// Update the screen with the parameters of the chat session.
@@ -118,10 +94,9 @@ namespace Incog.PowerShell.Commands
         /// <summary>
         /// Initialize parameters and base Incog cmdlet components.
         /// </summary>
-        protected void InitializeComponent()
+        protected new void InitializeComponent()
         {
-            // Set the value indicating the -Verbose switch was used
-            this.IsVerbose = this.MyInvocation.BoundParameters.ContainsKey("Verbose");
+            base.InitializeComponent();
 
             // Do all the preflight checks here.
             this.CheckWindowVersion();
@@ -129,7 +104,6 @@ namespace Incog.PowerShell.Commands
             this.CheckLocalAddressIsBound();
             this.CheckLocalAddressRemoteAddressFamily();
             this.CheckWindowsFirewall();
-            this.CheckIfAdministrator();
         }
 
         /// <summary>
@@ -188,24 +162,6 @@ namespace Incog.PowerShell.Commands
             if (this.LocalAddress.AddressFamily == this.RemoteAddress.AddressFamily) return;
             string error = string.Format("Both the local IP address and the remote IP address must be in the same family. The local is '{0}' and the remote is '{1}'.", this.LocalAddress.AddressFamily.ToString(), this.RemoteAddress.AddressFamily.ToString());
             throw new ApplicationException(error);
-        }
-
-        /// <summary>
-        /// Confirm the user is Administrator (if Requires Administrator == true).
-        /// </summary>
-        private void CheckIfAdministrator()
-        {
-            if (this.RequireAdministrator)
-            {
-                WindowsPrincipal user = new WindowsPrincipal(WindowsIdentity.GetCurrent());
-                bool admin = user.IsInRole(WindowsBuiltInRole.Administrator);
-
-                if (!admin)
-                {
-                    string error = string.Format("The {0} cmdlet requires elevated permissions. Please run it again as a member of the local Administrators group.", this.CmdletName);
-                    throw new ApplicationException(error);
-                }
-            }
         }
 
         /// <summary>

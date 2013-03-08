@@ -28,5 +28,8 @@ namespace Incog.PowerShell
         public const string CryptRandom = "CryptRandom";
         public const string ShannonEntropy = "ShannonEntropy"; // EntropyCalculatorDemo, EntropySpoofDemo
         public const string Shellcode = "Shellcode";
+
+        // Diagnostics
+        public const string FileInfo = "FileInfo";
     }
 }

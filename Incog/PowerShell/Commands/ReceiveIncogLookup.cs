@@ -21,7 +21,7 @@ namespace Incog.PowerShell.Commands
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Receive,
         Incog.PowerShell.Nouns.IncogLookup)]
-    public class ReceiveIncogLookup : ChannelCommand
+    public class ReceiveIncogLookup : Incog.PowerShell.Automation.ChannelCommand
     {
         /// <summary>
         /// Running message list for sending and reassembling messages.

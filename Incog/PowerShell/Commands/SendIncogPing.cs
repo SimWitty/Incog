@@ -18,7 +18,7 @@ namespace Incog.PowerShell.Commands
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Send,
         Incog.PowerShell.Nouns.IncogPing)]
-    public class SendIncogPing : ChannelCommand
+    public class SendIncogPing : Incog.PowerShell.Automation.ChannelCommand
     {
         /// <summary>
         /// Provides a one-time, preprocessing functionality for the cmdlet.

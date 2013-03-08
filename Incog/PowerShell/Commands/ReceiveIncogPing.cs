@@ -20,7 +20,7 @@ namespace Incog.PowerShell.Commands
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsCommunications.Receive,
         Incog.PowerShell.Nouns.IncogPing)]
-    public class ReceiveIncogPing : ChannelCommand
+    public class ReceiveIncogPing : Incog.PowerShell.Automation.ChannelCommand
     {
         /// <summary>
         /// Network socket for receiving packets.

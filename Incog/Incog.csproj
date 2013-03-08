@@ -64,10 +64,11 @@
   <ItemGroup>
     <Compile Include="Messaging\TextMessage.cs" />
     <Compile Include="Messaging\TextMessageList.cs" />
-    <Compile Include="PowerShell\Commands\TestFile.cs" />
+    <Compile Include="PowerShell\Automation\BaseCommand.cs" />
+    <Compile Include="PowerShell\Commands\TestFileInfoCommand.cs" />
     <Compile Include="PowerShell\Commands\GetCryptRandom.cs" />
-    <Compile Include="PowerShell\Commands\ChannelCommand.cs" />
-    <Compile Include="PowerShell\Commands\MediaCommand.cs" />
+    <Compile Include="PowerShell\Automation\ChannelCommand.cs" />
+    <Compile Include="PowerShell\Automation\MediaCommand.cs" />
     <Compile Include="PowerShell\Commands\ReceiveIncogLookup.cs" />
     <Compile Include="PowerShell\Commands\ReceiveIncogPing.cs" />
     <Compile Include="PowerShell\Commands\ReceiveNetcatCommand.cs" />
