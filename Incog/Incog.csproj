@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Messaging\TextMessage.cs" />
     <Compile Include="Messaging\TextMessageList.cs" />
+    <Compile Include="PowerShell\Commands\TestFile.cs" />
     <Compile Include="PowerShell\Commands\GetCryptRandom.cs" />
     <Compile Include="PowerShell\Commands\ChannelCommand.cs" />
     <Compile Include="PowerShell\Commands\MediaCommand.cs" />
