@@ -48,7 +48,7 @@ namespace Incog.PowerShell.Automation
             base.InitializeComponent();
 
             // Do all the preflight checks here.
-            ExpandAndVerifyPath();
+            this.ExpandAndVerifyPath();
         }
 
         /// <summary>

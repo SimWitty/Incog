@@ -244,8 +244,8 @@ namespace Incog.Steganography
         /// <param name="path">The bitmap file to write to.</param>
         /// <param name="startingPosition">The starting byte address.</param>
         /// <param name="message">The message in Unicode characters.</param>
-        /// <param name="passphrase">The passphrase for encrypting and decrypting the message text.</param>
         /// <param name="mathset">The set to use to determine where to update the least significant bits.</param>
+        /// <param name="passphrase">The passphrase for encrypting and decrypting the message text.</param>
         public static void SteganographyWrite(string path, uint startingPosition, string message, ChannelTools.MathematicalSet mathset, SecureString passphrase)
         {
             // Append the stop character: 0xFFFF or 65,535

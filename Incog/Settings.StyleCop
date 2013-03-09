@@ -6,6 +6,8 @@
       <Value>cmdlet's</Value>
       <Value>Incog</Value>
       <Value>nslookup</Value>
+      <Value>Sim</Value>
+      <Value>SimWitty</Value>
       <Value>Steganographic</Value>
     </CollectionProperty>
   </GlobalSettings>

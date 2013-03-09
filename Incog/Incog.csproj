@@ -68,7 +68,7 @@
     <Compile Include="PowerShell\Commands\GetIncogImageCommand.cs" />
     <Compile Include="PowerShell\Commands\SetIncogImageCommand.cs" />
     <Compile Include="PowerShell\Commands\TestFileInfoCommand.cs" />
-    <Compile Include="PowerShell\Commands\GetCryptRandom.cs" />
+    <Compile Include="PowerShell\Commands\TestCryptRandom.cs" />
     <Compile Include="PowerShell\Automation\ChannelCommand.cs" />
     <Compile Include="PowerShell\Automation\MediaCommand.cs" />
     <Compile Include="PowerShell\Commands\ReceiveIncogLookup.cs" />

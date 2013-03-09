@@ -38,6 +38,9 @@ namespace Incog.Tools
             Unspecified
         }
 
+        /// <summary>
+        /// The selected mathematical set to use for distributing the covert channel within the normal communication channel.
+        /// </summary>
         public enum MathematicalSet
         {
             /// <summary>

@@ -25,11 +25,11 @@ namespace Incog.PowerShell
         public const string IncogMutex = "IncogMutex"; // MemoryMappedFileDemo
         
         // Miscellaneous
-        public const string CryptRandom = "CryptRandom";
         public const string ShannonEntropy = "ShannonEntropy"; // EntropyCalculatorDemo, EntropySpoofDemo
         public const string Shellcode = "Shellcode";
 
         // Diagnostics
+        public const string CryptRandom = "CryptRandom";
         public const string FileInfo = "FileInfo";
     }
 }

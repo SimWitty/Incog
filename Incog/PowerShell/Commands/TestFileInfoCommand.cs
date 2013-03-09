@@ -9,6 +9,9 @@ namespace Incog.PowerShell.Commands
     using System.Management.Automation; // System.Management.Automation.dll
     using SimWitty.Library.Core.Tools; // StringTools
 
+    /// <summary>
+    /// Testing the Media Command -Path parameter.
+    /// </summary>
     [System.Management.Automation.Cmdlet(
         System.Management.Automation.VerbsDiagnostic.Test,
         Incog.PowerShell.Nouns.FileInfo)]

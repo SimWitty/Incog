@@ -29,6 +29,11 @@ namespace Incog.PowerShell.Commands
         private TextMessageList messagelist = new TextMessageList();
 
         /// <summary>
+        /// The current identifier for the message list.
+        /// </summary>
+        private ushort messageId = 0;
+
+        /// <summary>
         /// Provides a one-time, preprocessing functionality for the cmdlet.
         /// </summary>
         protected override void BeginProcessing()
@@ -82,8 +87,6 @@ namespace Incog.PowerShell.Commands
             while (true);
         }
 
-        ushort messageId = 0;
-
         /// <summary>
         /// Send incognito message via DNS and, if successful, return the value encoded in Base64.
         /// </summary>
@@ -92,7 +95,7 @@ namespace Incog.PowerShell.Commands
         private string SendCovertMessage(string message)
         {
             // Execute the covert channel
-            messageId++;
+            this.messageId++;
             ushort fragmentId = 0;
 
             // Ensure the line is at least 16 Byte (128 bit) for encryption
@@ -114,7 +117,7 @@ namespace Incog.PowerShell.Commands
             {
                 ushort length = (ushort)Math.Min(this.messagelist.MaximumByteLength, messageBytes.Length - i);
 
-                byte[] msg = BitConverter.GetBytes(messageId);
+                byte[] msg = BitConverter.GetBytes(this.messageId);
                 byte[] frag = BitConverter.GetBytes(fragmentId);
                 byte[] len = BitConverter.GetBytes(length);
 

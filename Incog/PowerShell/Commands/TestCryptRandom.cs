@@ -1,23 +1,20 @@
-﻿// <copyright file="GetCryptRandom.cs" company="SimWitty (http://www.simwitty.org)">
+﻿// <copyright file="TestCryptRandom.cs" company="SimWitty (http://www.simwitty.org)">
 //     Copyright © 2013 and distributed under the BSD license.
 // </copyright>
 
 namespace Incog.PowerShell.Commands
 {
     using System;
-    using System.Management.Automation; // System.Management.Automation.dll
-    using System.Net;
-    using System.Net.Sockets;
-    using Microsoft.PowerShell.Commands; // Microsoft.PowerShell.Commands.Utility
+    using System.Management.Automation;
     using SimWitty.Library.Core.Encrypting;
     
     /// <summary>
-    /// Hello World cmdlet used to test ideas and coding patterns.
+    /// Exposing the SimWitty Crypt Random generator for testing in PowerShell.
     /// </summary>
     [System.Management.Automation.Cmdlet(
-        System.Management.Automation.VerbsCommon.Get,
+        System.Management.Automation.VerbsDiagnostic.Test,
         Incog.PowerShell.Nouns.CryptRandom)]
-    public class GetCryptRandom : System.Management.Automation.PSCmdlet
+    public class TestCryptRandom : System.Management.Automation.PSCmdlet
     {
         /// <summary>
         /// Gets or sets the maximum value for the random integer.

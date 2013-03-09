@@ -58,7 +58,7 @@ namespace Incog.PowerShell.Commands
             {
                 byte[] payload = socket.Receive(ref aliceEndpoint);
                 string text = System.Text.Encoding.ASCII.GetString(payload);
-                ReceiveCovertMessage(text);
+                this.ReceiveCovertMessage(text);
             }
             while (this.packetCapturing);
 
@@ -131,10 +131,10 @@ namespace Incog.PowerShell.Commands
             if (!result) return;
 
             // Add the message fragment
-            messagelist.AddToMessages(fragment);
+            this.messagelist.AddToMessages(fragment);
 
             // Loop thru all messages and display
-            foreach (TextMessage message in messagelist)
+            foreach (TextMessage message in this.messagelist)
             {
                 if (message.Complete)
                 {
