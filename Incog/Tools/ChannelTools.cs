@@ -38,6 +38,29 @@ namespace Incog.Tools
             Unspecified
         }
 
+        public enum MathematicalSet
+        {
+            /// <summary>
+            /// The set of linear incrementing numbers.
+            /// </summary>
+            Linear,
+
+            /// <summary>
+            /// The set of non-repeating random numbers.
+            /// </summary>
+            Random,
+
+            /// <summary>
+            /// The set of prime numbers, calculated using the Sieve of Eratosthenes.
+            /// </summary>
+            PrimeNumbers,
+
+            /// <summary>
+            /// The user has not specified the set.
+            /// </summary>
+            Unspecified
+        }
+
         /// <summary>
         /// Encode a string for inclusion in a covert channel by adding a leading and trailing control characters.
         /// </summary>
@@ -70,6 +93,130 @@ namespace Incog.Tools
             {
                 return s.Substring(start, length);
             }
+        }
+
+        /// <summary>
+        /// Get a mathematical set of linear values starting a minimum value.
+        /// For example, if the minimum is 5 and the length is 5, the resulting set would be: { 5, 6, 7, 8, 9 }
+        /// </summary>
+        /// <param name="minimum">The first number in the set.</param>
+        /// <param name="length">The total array length of the resulting set.</param>
+        /// <returns>Returns a set of position values.</returns>
+        public static uint[] MathSetLinear(uint minimum, uint length)
+        {
+            uint[] mathset = new uint[length];
+
+            for (uint u = 0; u < mathset.Length; u++)
+            {
+                mathset[u] = minimum + u;
+            }
+
+            return mathset;
+        }
+
+        /// <summary>
+        /// Get a mathematical set of non-repeating random values between a minimum and maximum.
+        /// For example, if the minimum is 1, the maximum is 10, and the length is 5, the resulting set would be: { 1, 5, 9, 4, 2 }
+        /// </summary>
+        /// <param name="minimum">The minimum value in the set. No values returned will be lower than this value.</param>
+        /// <param name="maximum">The maximum value in the set. No values returned will be higher than this value.</param>
+        /// <param name="length">The total array length of the resulting set.</param>
+        /// <returns>Returns a set of position values.</returns>
+        public static uint[] MathSetRandom(uint minimum, uint maximum, uint length)
+        {
+            //// Define and zero out the math set
+
+            uint[] mathset = new uint[length];
+            for (uint u = 0; u < mathset.Length; u++)
+            {
+                mathset[u] = uint.MinValue;
+            }
+
+            // Ensure the minimum and maximum values do not exceed int 
+            int minValue = SafeConvertToInt(minimum);
+            int maxValue = SafeConvertToInt(maximum);
+
+            //// Randomly fill the math set without repeating values
+
+            int seed = maxValue - minValue;
+            Random rand = new Random(seed);
+            uint value = uint.MinValue;
+
+            for (int i = 0; i < mathset.Length; i++)
+            {
+                while (Array.IndexOf(mathset, value) != -1)
+                {
+                    value = (uint)rand.Next(minValue, maxValue);
+                }
+
+                mathset[i] = value;
+            }
+
+            return mathset;
+        }
+
+        /// <summary>
+        /// Get a mathematical set of prime numbers using the Sieve of Eratosthenes algorithm.
+        /// </summary>
+        /// <param name="minimum">The minimum value in the set. No values returned will be lower than this value.</param>
+        /// <param name="maximum">The maximum value in the set. No values returned will be higher than this value.</param>
+        /// <param name="length">The total array length of the resulting set.</param>
+        /// <returns>Returns a set of position values.</returns>
+        public static uint[] MathSetSieveOfEratosthenes(uint minimum, uint maximum, uint length)
+        {
+            //// Define and zero out the math set
+
+            uint[] mathset = new uint[length];
+            for (uint u = 0; u < mathset.Length; u++)
+            {
+                mathset[u] = uint.MinValue;
+            }
+
+            //// Execute the Sieve of Eratosthenes to find prime factor numbers
+
+            double biggestSquareRoot = Math.Sqrt(maximum);
+            bool[] eliminated = new bool[maximum];
+            int index = 0;
+
+            for (uint i = 3; i < maximum; i += 2)
+            {
+                if (!eliminated[i])
+                {
+                    if (i < biggestSquareRoot)
+                    {
+                        for (uint j = i * i; j < maximum; j += 2 * i)
+                            eliminated[j] = true;
+                    }
+
+                    if (i >= minimum && i <= maximum)
+                    {
+                        mathset[index] = i;
+                        index++;
+                    }
+
+                    if (index >= mathset.Length) break;
+                }
+            }
+
+            if (mathset[mathset.Length - 1] == uint.MinValue)
+            {
+                string error = string.Format("The math set could not be completed. There are insufficent prime numbers between {0} and {1} to fill {2} positions.", minimum.ToString(), maximum.ToString(), length.ToString());
+                throw new ApplicationException(error);
+            }
+
+            return mathset;
+        }
+
+        /// <summary>
+        /// Convert a unsigned integer to an integer without an System.OverflowException.
+        /// If the unsigned integer is greater than integer's maximum value, then the resulting integer is maximum value.
+        /// </summary>
+        /// <param name="value">The unsigned integer to convert.</param>
+        /// <returns>The resulting integer after conversion.</returns>
+        private static int SafeConvertToInt(uint value)
+        {
+            if (value > int.MaxValue) return int.MaxValue;
+            else return Convert.ToInt32(value);
         }
     }
 }

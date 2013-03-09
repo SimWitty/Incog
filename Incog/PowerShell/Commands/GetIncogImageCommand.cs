@@ -6,7 +6,8 @@ namespace Incog.PowerShell.Commands
 {
     using System;
     using System.Management.Automation;
-    using Incog.Steganography;
+    using Incog.Steganography; // BitmapSteganography
+    using Incog.Tools; // ChannelTools
     using SimWitty.Library.Core.Encrypting; // Cryptkeeper
 
     /// <summary>
@@ -21,7 +22,14 @@ namespace Incog.PowerShell.Commands
         /// Gets or sets a value indicating the first pixel to begin the message.
         /// </summary>
         [Parameter(Mandatory = false)]
-        public ushort BitmapIndex { get; set; }
+        public uint BitmapIndex { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating the mathematical set to use in steganography.
+        /// </summary>
+        [Parameter(Mandatory = false)]
+        [ValidateSet("Linear", "Random", "PrimeNumbers")]
+        public string MathSet { get; set; }
 
         /// <summary>
         /// Provides a one-time, preprocessing functionality for the cmdlet.
@@ -33,6 +41,9 @@ namespace Incog.PowerShell.Commands
 
             // Set the bitmap index default if no index was supplied.
             if (this.BitmapIndex == 0) this.BitmapIndex = 128;
+
+            // Avoid null strings by setting the string to empty
+            if (this.MathSet == null) this.MathSet = string.Empty;
         }
 
         /// <summary>
@@ -40,8 +51,33 @@ namespace Incog.PowerShell.Commands
         /// </summary>
         protected override void ProcessRecord()
         {
-            Cryptkeeper crypt = new Cryptkeeper(this.Passphrase);
-            string text = BitmapSteganography.SteganographyRead(this.Path.FullName, this.BitmapIndex);
+            string text = string.Empty;
+
+            switch (this.MathSet.ToLower())
+            {
+                case "random":
+                    text = BitmapSteganography.SteganographyRead(
+                        this.Path.FullName,
+                        this.BitmapIndex,
+                        ChannelTools.MathematicalSet.Random,
+                        this.Passphrase);
+                    break;
+                case "primenumbers":
+                    text = BitmapSteganography.SteganographyRead(
+                        this.Path.FullName,
+                        this.BitmapIndex,
+                        ChannelTools.MathematicalSet.PrimeNumbers,
+                        this.Passphrase);
+                    break;
+                default:
+                    text = BitmapSteganography.SteganographyRead(
+                        this.Path.FullName,
+                        this.BitmapIndex,
+                        ChannelTools.MathematicalSet.Linear,
+                        this.Passphrase);
+                    break;
+            }
+
             this.WriteObject(text);
         }
 

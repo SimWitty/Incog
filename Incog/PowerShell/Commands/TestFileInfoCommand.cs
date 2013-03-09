@@ -27,7 +27,7 @@ namespace Incog.PowerShell.Commands
             Console.WriteLine("CurrentProviderLocation(Registry): {0}", this.CurrentProviderLocation("Registry"));
             Console.WriteLine("CurrentFileSystemLocation: {0}", this.SessionState.Path.CurrentFileSystemLocation.Path);
             Console.WriteLine("CurrentLocation: {0}", this.SessionState.Path.CurrentLocation.Path);
-            Console.WriteLine("isFileSystem: {0}", this.IsInFileSystem.ToString());            
+            Console.WriteLine("isFileSystem: {0}", this.IsInFileSystem.ToString());
         }
 
         /// <summary>
