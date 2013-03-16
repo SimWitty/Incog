@@ -93,7 +93,6 @@ namespace Incog.PowerShell.Automation
             base.InitializeComponent();
 
             // Do all the preflight checks here.
-            this.CheckWindowVersion();
             this.DefaultLocalAddressToAny();
             this.CheckLocalAddressIsBound();
             this.CheckLocalAddressRemoteAddressFamily();
@@ -156,20 +155,6 @@ namespace Incog.PowerShell.Automation
             if (this.LocalAddress.AddressFamily == this.RemoteAddress.AddressFamily) return;
             string error = string.Format("Both the local IP address and the remote IP address must be in the same family. The local is '{0}' and the remote is '{1}'.", this.LocalAddress.AddressFamily.ToString(), this.RemoteAddress.AddressFamily.ToString());
             throw new ApplicationException(error);
-        }
-
-        /// <summary>
-        /// Check the Windows Operating System version.
-        /// </summary>
-        private void CheckWindowVersion()
-        {
-            string error = string.Format("The {0} cmdlet has not been tested on this OS. Please use Windows 7, Windows 8, Windows Server 2008 R2, or Windows Server 2012.", this.CmdletName);
-
-            Version windows = Environment.OSVersion.Version;
-            if (windows.Major < 6) throw new ApplicationException(error);
-            if (windows.Minor < 1) throw new ApplicationException(error);
-
-            // For further information, please see: http://msdn.microsoft.com/en-us/library/ms724832(v=vs.85).aspx
         }
 
         /// <summary>

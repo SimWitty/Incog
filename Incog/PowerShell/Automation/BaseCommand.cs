@@ -34,6 +34,11 @@ namespace Incog.PowerShell.Automation
         }
 
         /// <summary>
+        /// Gets the cmdlet Globally Unique Identifier from executing assembly.
+        /// </summary>
+        public string CmdletGuid { get; private set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the code requires the user to have local administrator privileges.
         /// This is checked when InitializeComponent() is called.
         /// </summary>
@@ -49,11 +54,15 @@ namespace Incog.PowerShell.Automation
         /// </summary>
         protected void InitializeComponent()
         {
+            // Set the Globally Unique Identifier
+            this.CmdletGuid = ((System.Runtime.InteropServices.GuidAttribute)System.Reflection.Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(System.Runtime.InteropServices.GuidAttribute), false).GetValue(0)).Value.ToString();
+            
             // Set the value indicating the -Verbose switch was used
             this.IsVerbose = this.MyInvocation.BoundParameters.ContainsKey("Verbose");
 
-            // Throw an exception if the cmdlet is set to require administrator but the user is not an administrator.
+            // Do all the preflight checks here.
             this.CheckIfAdministrator();
+            this.CheckWindowVersion();
         }
 
         /// <summary>
@@ -72,6 +81,20 @@ namespace Incog.PowerShell.Automation
                     throw new ApplicationException(error);
                 }
             }
+        }
+
+        /// <summary>
+        /// Check the Windows Operating System version.
+        /// </summary>
+        private void CheckWindowVersion()
+        {
+            string error = string.Format("The {0} cmdlet has not been tested on this OS. Please use Windows 7, Windows 8, Windows Server 2008 R2, or Windows Server 2012.", this.CmdletName);
+
+            Version windows = Environment.OSVersion.Version;
+            if (windows.Major < 6) throw new ApplicationException(error);
+
+            // if (windows.Minor < 1) throw new ApplicationException(error);
+            // For further information, please see: http://msdn.microsoft.com/en-us/library/ms724832(v=vs.85).aspx
         }
     }
 }

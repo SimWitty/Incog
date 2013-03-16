@@ -39,13 +39,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\WindowsPowerShell\3.0\Microsoft.PowerShell.Management.Activities.dll</HintPath>
     </Reference>
-    <Reference Include="SimWitty.Library.Core">
+    <Reference Include="SimWitty.Library.Core, Version=1.13.72.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SimWitty\Library\SimWitty.Library.Core\bin\Debug\SimWitty.Library.Core.dll</HintPath>
     </Reference>
-    <Reference Include="SimWitty.Library.Interop">
+    <Reference Include="SimWitty.Library.Interop, Version=1.13.64.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SimWitty\Library\SimWitty.Library.Interop\bin\Debug\SimWitty.Library.Interop.dll</HintPath>
     </Reference>
-    <Reference Include="SimWitty.Library.Protocols">
+    <Reference Include="SimWitty.Library.Protocols, Version=1.13.64.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\SimWitty\Library\SimWitty.Library.Protocols\bin\Debug\SimWitty.Library.Protocols.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -62,10 +65,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Messaging\IncogStream.cs" />
     <Compile Include="Messaging\TextMessage.cs" />
     <Compile Include="Messaging\TextMessageList.cs" />
     <Compile Include="PowerShell\Automation\BaseCommand.cs" />
     <Compile Include="PowerShell\Commands\GetIncogImageCommand.cs" />
+    <Compile Include="PowerShell\Commands\ReceiveIncogNamedPipeCommand.cs" />
+    <Compile Include="PowerShell\Commands\SendIncogNamedPipeCommand.cs" />
     <Compile Include="PowerShell\Commands\SetIncogImageCommand.cs" />
     <Compile Include="PowerShell\Commands\TestFileInfoCommand.cs" />
     <Compile Include="PowerShell\Commands\TestCryptRandom.cs" />

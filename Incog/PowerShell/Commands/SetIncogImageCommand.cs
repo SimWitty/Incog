@@ -19,6 +19,12 @@ namespace Incog.PowerShell.Commands
     public class SetIncogImageCommand : Incog.PowerShell.Automation.MediaCommand
     {
         /// <summary>
+        /// Gets or sets a value indicating the message to covertly place in the image.
+        /// </summary>
+        [Parameter(Mandatory = true)]
+        public string Message { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating the first pixel to begin the message.
         /// </summary>
         [Parameter(Mandatory = false)]
@@ -30,12 +36,6 @@ namespace Incog.PowerShell.Commands
         [Parameter(Mandatory = false)]
         [ValidateSet("Linear", "Random", "PrimeNumbers")]
         public string MathSet { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating the message to covertly place in the image.
-        /// </summary>
-        [Parameter(Mandatory = true)]
-        public string Message { get; set; }
 
         /// <summary>
         /// Provides a one-time, preprocessing functionality for the cmdlet.
