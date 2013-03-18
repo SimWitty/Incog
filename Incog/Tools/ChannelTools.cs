@@ -123,6 +123,20 @@ namespace Incog.Tools
         /// </summary>
         /// <param name="minimum">The minimum value in the set. No values returned will be lower than this value.</param>
         /// <param name="maximum">The maximum value in the set. No values returned will be higher than this value.</param>
+        /// <returns>Returns a set of position values.</returns>
+        public static uint[] MathSetRandom(uint minimum, uint maximum)
+        {
+            if (maximum > minimum) throw new ApplicationException("The minimum value cannot exceed the maximum value.");
+            uint length = maximum - minimum;
+            return MathSetRandom(minimum, maximum, length);
+        }
+
+        /// <summary>
+        /// Get a mathematical set of non-repeating random values between a minimum and maximum.
+        /// For example, if the minimum is 1, the maximum is 10, and the length is 5, the resulting set would be: { 1, 5, 9, 4, 2 }
+        /// </summary>
+        /// <param name="minimum">The minimum value in the set. No values returned will be lower than this value.</param>
+        /// <param name="maximum">The maximum value in the set. No values returned will be higher than this value.</param>
         /// <param name="length">The total array length of the resulting set.</param>
         /// <returns>Returns a set of position values.</returns>
         public static uint[] MathSetRandom(uint minimum, uint maximum, uint length)
