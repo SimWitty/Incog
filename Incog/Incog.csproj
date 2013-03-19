@@ -72,7 +72,9 @@
     <Compile Include="PowerShell\Commands\GetIncogImageCommand.cs" />
     <Compile Include="PowerShell\Commands\GetIncogWebPageCommand.cs" />
     <Compile Include="PowerShell\Commands\ReceiveIncogNamedPipeCommand.cs" />
+    <Compile Include="PowerShell\Commands\ReceiveIncogWebServerCommand.cs" />
     <Compile Include="PowerShell\Commands\SendIncogNamedPipeCommand.cs" />
+    <Compile Include="PowerShell\Commands\SendIncogWebServerCommand.cs" />
     <Compile Include="PowerShell\Commands\SetIncogImageCommand.cs" />
     <Compile Include="PowerShell\Commands\SetIncogWebPageCommand.cs" />
     <Compile Include="PowerShell\Commands\TestFileInfoCommand.cs" />

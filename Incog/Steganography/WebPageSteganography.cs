@@ -60,7 +60,7 @@ namespace Incog.Steganography
             this.webPageFile.CreationTime = created;
             this.webPageFile.LastWriteTime = modified;
             this.webPageFile.LastAccessTime = accessed;
-            
+
             // Setup the original steganography bytes
             this.CopyOriginalToStego();
 
@@ -68,7 +68,7 @@ namespace Incog.Steganography
             uint length = Math.Min(4096, this.Maximum - this.Minimum);
             this.Positions = ChannelTools.MathSetRandom(this.Minimum, this.Maximum, length);
 
-            // Save the password.
+            // Save the password
             this.passphrase = passphrase.Copy();
         }
 
@@ -89,8 +89,8 @@ namespace Incog.Steganography
             // Setup the index positions for each steganographic message byte
             uint length = Math.Min(4096, this.Maximum - this.Minimum);
             this.Positions = ChannelTools.MathSetRandom(this.Minimum, this.Maximum, length);
-
-            // Save the password.
+            
+            // Save the password
             this.passphrase = passphrase.Copy();
         }
 
@@ -170,7 +170,7 @@ namespace Incog.Steganography
             lengthBytes[3] = buffer[this.Positions[3]];
             uint length = BitConverter.ToUInt32(lengthBytes, 0);
 
-            // If the length is 0, there is no message, and we return an empty string.
+            // If the length is 0, there is no message, and we return an empty string
             if (length == 0) return string.Empty;
 
             // Extract the encrypted bytes
@@ -178,7 +178,10 @@ namespace Incog.Steganography
 
             for (int i = 0; i < cipherBytes.Length; i++)
             {
-                // We start at length bytes and increment the position index from that point.
+                // It should not happen, but just in case, prevent an index out of range exception
+                if (i >= buffer.Length) break;
+
+                // We start at length bytes and increment the position index from that point
                 uint position = this.Positions[lengthBytes.Length + i];
                 byte stegoByte = buffer[position];
                 cipherBytes[i] = stegoByte;
@@ -250,9 +253,6 @@ namespace Incog.Steganography
 
             // Sanity check -- are there enough positions?
             if (buffer.Length > this.Positions.Length) throw new ApplicationException("The web page does not have sufficient bytes to write a message of this size.");
-
-            // Reload the page
-            this.CopyOriginalToStego();
 
             // Embed the message into the html byte array
             for (int i = 0; i < buffer.Length; i++)

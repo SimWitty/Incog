@@ -9,10 +9,12 @@ namespace Incog.Servers
     using System.IO;
     using System.Net;
     using System.Net.Sockets;
+    using System.Security;
     using System.Text;
     using System.Threading;
     using Incog.Steganography;
     using Incog.Tools;
+    using SimWitty.Library.Core.Encrypting;
 
     /// <summary>
     /// Simple Hypertext Transfer Protocol (HTTP) Web Server.
@@ -25,27 +27,36 @@ namespace Incog.Servers
         private TcpListener listener;
 
         /// <summary>
+        /// Private pass phrase for encrypting the messages.
+        /// </summary>
+        private SecureString passphrase;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="HttpServer" /> class.
         /// </summary>
-        public HttpServer()
+        /// <param name="passphrase">The passphrase for encrypting and decrypting.</param>
+        public HttpServer(SecureString passphrase)
         {
             this.Address = IPAddress.Any;
             this.Port = 80;
             this.Active = false;
             this.MessageQueue = new Queue();
+            this.passphrase = passphrase.Copy();
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HttpServer" /> class.
         /// </summary>
+        /// <param name="passphrase">The passphrase for encrypting and decrypting.</param>
         /// <param name="address">Sets the IP address that the server listens on.</param>
         /// <param name="port">Sets the TCP/IP Port that the HTTP server listens on.</param>
-        public HttpServer(IPAddress address, int port)
+        public HttpServer(SecureString passphrase, IPAddress address, int port)
         {
             this.Address = address;
             this.Port = port;
             this.Active = false;
             this.MessageQueue = new Queue();
+            this.passphrase = passphrase.Copy();
         }
 
         /// <summary>
@@ -85,6 +96,8 @@ namespace Incog.Servers
                 thread.Start();
                 Thread.Sleep(1);
             }
+
+            this.listener.Stop();
         }
 
         /// <summary>
@@ -103,17 +116,8 @@ namespace Incog.Servers
         {
             processor.WriteSuccess();
 
-            System.Security.SecureString passphrase = new System.Security.SecureString();
-
-            string password = "Passw0rd!";
-            char[] characters = password.ToCharArray();
-            for (int i = 0; i < characters.Length; i++)
-            {
-                passphrase.AppendChar(characters[i]);
-            }
-
-            SimWitty.Library.Core.Encrypting.Cryptkeeper myCrypt = new SimWitty.Library.Core.Encrypting.Cryptkeeper(passphrase);
-            SimWitty.Library.Core.Encrypting.DerivedValue derived = new SimWitty.Library.Core.Encrypting.DerivedValue(passphrase);
+            Cryptkeeper myCrypt = new Cryptkeeper(this.passphrase);
+            DerivedValue derived = new DerivedValue(this.passphrase);
             string result = derived.GetString(3, 10);
 
             // No result? No handshake. Done.
@@ -137,23 +141,20 @@ namespace Incog.Servers
                 byte[] page = web.DownloadData(link);
                 web.Dispose();
 
+                WebPageSteganography stegopage = new WebPageSteganography(page, this.passphrase);
+                string message = string.Empty;
+
                 if (this.MessageQueue.Count > 0)
                 {
-                    string message = (string)this.MessageQueue.Dequeue();
-                    WebPageSteganography stegopage = new WebPageSteganography(page, passphrase);
-                    stegopage.WriteValue(message);
-                    page = stegopage.GetBytes();
-
-                    Console.WriteLine(stegopage.ReadValue());
+                    message = (string)this.MessageQueue.Dequeue();
                 }
+
+                stegopage.WriteValue(message);
+                page = stegopage.GetBytes();
 
                 processor.StreamOutput.Write(page);
                 processor.StreamOutput.Flush();
                 processor.WriteSuccess();
-
-                Console.WriteLine(link);
-                Console.WriteLine(page.Length.ToString());
-                Console.WriteLine();
             }
             catch (Exception ex)
             {
@@ -168,7 +169,6 @@ namespace Incog.Servers
         /// <param name="processor">The HTTP processor.</param>
         public void HttpPostHandler(HttpProcessor processor)
         {
-            Console.WriteLine("POST request: {0}", processor.RequestURL);
             string data = string.Empty;
 
             do
