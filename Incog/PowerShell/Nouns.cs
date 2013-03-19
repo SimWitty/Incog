@@ -16,13 +16,15 @@ namespace Incog.PowerShell
         public const string IncogLookup = "IncogLookup"; // DnsDemo
         public const string IncogNamedPipe = "IncogNamedPipe"; // NamedPipeDemo
         public const string IncogPing = "IncogPing"; // PingDemo
+        public const string IncogWebServer = "IncogWebServer";
         public const string Netcat = "Netcat";
 
         // Media commands -- Steganography and Files
-        public const string IncogAltDataStream = "IncogAltDataStream";
+        public const string IncogAltDataStream = "IncogAltDataStream"; // AlternateDataStreamDemo
         public const string IncogAudio = "IncogAudio"; // WaveFileSteganographyDemo
         public const string IncogImage = "IncogImage"; // BitmapSteganographyDemo
         public const string IncogMutex = "IncogMutex"; // MemoryMappedFileDemo
+        public const string IncogWebPage = "IncogWebPage";
         
         // Miscellaneous
         public const string ShannonEntropy = "ShannonEntropy"; // EntropyCalculatorDemo, EntropySpoofDemo

@@ -84,7 +84,7 @@ namespace Incog.PowerShell.Commands
                         this.Passphrase);
                     break;
             }
-                        
+
             this.WriteObject("Message saved.");
         }
 

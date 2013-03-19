@@ -70,9 +70,11 @@
     <Compile Include="Messaging\TextMessageList.cs" />
     <Compile Include="PowerShell\Automation\BaseCommand.cs" />
     <Compile Include="PowerShell\Commands\GetIncogImageCommand.cs" />
+    <Compile Include="PowerShell\Commands\GetIncogWebPageCommand.cs" />
     <Compile Include="PowerShell\Commands\ReceiveIncogNamedPipeCommand.cs" />
     <Compile Include="PowerShell\Commands\SendIncogNamedPipeCommand.cs" />
     <Compile Include="PowerShell\Commands\SetIncogImageCommand.cs" />
+    <Compile Include="PowerShell\Commands\SetIncogWebPageCommand.cs" />
     <Compile Include="PowerShell\Commands\TestFileInfoCommand.cs" />
     <Compile Include="PowerShell\Commands\TestCryptRandom.cs" />
     <Compile Include="PowerShell\Automation\ChannelCommand.cs" />
@@ -85,12 +87,18 @@
     <Compile Include="PowerShell\Commands\SendNetcatCommand.cs" />
     <Compile Include="PowerShell\Nouns.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servers\HttpProcessor.cs" />
+    <Compile Include="Servers\HttpServer.cs" />
     <Compile Include="Steganography\BitmapSteganography.cs" />
+    <Compile Include="Steganography\WebPageSteganography.cs" />
     <Compile Include="Tools\ChannelTools.cs" />
     <Compile Include="Tools\ConsoleTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Samples\SteganographySampleImage.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\WebHistoryFile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

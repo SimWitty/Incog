@@ -79,6 +79,7 @@ namespace Incog.PowerShell.Commands
             }
 
             this.WriteObject(text);
+            this.WriteVerbose("Message retrieved.");
         }
 
         /// <summary>

@@ -8,12 +8,65 @@ namespace Incog.Tools
     using System.IO;
     using System.Reflection;
     using System.Security;
+    using SimWitty.Library.Core.Tools; // StringTools
 
     /// <summary>
     /// A collection of tools for automating common console inputs and outputs.
     /// </summary>
     public static class ConsoleTools
     {
+        /// <summary>
+        /// Expand the file path if relative (".\filename" or "filename") and verify the file exists.
+        /// </summary>
+        /// <param name="cmdlet">A reference to the PSCmdlet.</param>
+        /// <param name="path">The path passed in as an argument.</param>
+        /// <returns>Returns the expanded and verified path (File Info).</returns>
+        public static FileInfo ExpandAndVerifyPath(System.Management.Automation.PSCmdlet cmdlet, FileInfo path)
+        {
+            // If we are not in the file system, game over.
+            if (!ConsoleTools.IsInFileSystem(cmdlet))
+            {
+                string error = "The cmdlet applies steganography to local files. Please run it again from the local file system.";
+                throw new ApplicationException(error);
+            }
+
+            string filename = path.ToString();
+            string currentPath = cmdlet.SessionState.Path.CurrentFileSystemLocation.Path;
+            string networkPath = "Microsoft.PowerShell.Core\\FileSystem::\\\\";
+
+            // If the string starts with .\ or is not immediately found, expand to the local file path.
+            if (StringTools.StartsWith(filename, ".") || !File.Exists(filename))
+            {
+                string[] values = path.ToString().Split('\\');
+                filename = currentPath;
+
+                // Concat every name in the path
+                for (int i = 1; i < values.Length; i++)
+                {
+                    string name = values[i].Trim();
+                    filename = string.Concat(filename, "\\", name);
+                }
+
+                // If the path is on the network, remove the Core and pre-pend the UNC.
+                if (SimWitty.Library.Core.Tools.StringTools.StartsWith(filename, networkPath, true))
+                {
+                    filename = filename.Substring(networkPath.Length);
+                    filename = string.Concat("\\\\", filename);
+                }
+
+                path = new FileInfo(filename);
+            }
+
+            // Double-check that the file can now be found
+            if (!File.Exists(path.FullName))
+            {
+                string error = string.Format("The cmdlet cannot find the file '{0}'. Please check the file path and try again.", path.ToString());
+                throw new ApplicationException(error);
+            }
+
+            return path;
+        }
+
         /// <summary>
         /// Get cmdlet attribute, based on type, using reflection.
         /// </summary>
@@ -99,6 +152,16 @@ namespace Incog.Tools
             Array.Sort(lengths);
             int length = lengths[lengths.Length - 1];
             return HorizontalLine(length, line);
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether the current path is located in the file system. 
+        /// </summary>
+        /// <param name="cmdlet">A reference to the PSCmdlet.</param>
+        /// <returns>True if the path is in the file system, false if not.</returns>
+        public static bool IsInFileSystem(System.Management.Automation.PSCmdlet cmdlet)
+        {
+            return cmdlet.SessionState.Path.CurrentLocation.Path == cmdlet.SessionState.Path.CurrentFileSystemLocation.Path;
         }
     }
 }
