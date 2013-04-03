@@ -10,3 +10,4 @@ H:\github\Incog\Incog\bin\Debug\SimWitty.Library.Protocols.pdb
 H:\github\Incog\Incog\obj\Debug\Incog.PowerShell.Commands.dll
 H:\github\Incog\Incog\obj\Debug\Incog.PowerShell.Commands.pdb
 H:\github\Incog\Incog\bin\Debug\Samples\WebHistoryFile.txt
+H:\github\Incog\Incog\obj\Debug\Incog.csprojResolveAssemblyReference.cache

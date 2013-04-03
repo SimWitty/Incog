@@ -20,7 +20,7 @@ namespace Incog.PowerShell
         public const string Netcat = "Netcat";
 
         // Media commands -- Steganography and Files
-        public const string IncogAltDataStream = "IncogAltDataStream"; // AlternateDataStreamDemo
+        public const string IncogFileSystem = "IncogFileSystem"; // AlternateDataStreamDemo
         public const string IncogAudio = "IncogAudio"; // WaveFileSteganographyDemo
         public const string IncogImage = "IncogImage"; // BitmapSteganographyDemo
         public const string IncogMutex = "IncogMutex"; // MemoryMappedFileDemo
