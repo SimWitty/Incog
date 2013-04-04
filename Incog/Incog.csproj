@@ -69,6 +69,8 @@
     <Compile Include="Messaging\TextMessage.cs" />
     <Compile Include="Messaging\TextMessageList.cs" />
     <Compile Include="PowerShell\Automation\BaseCommand.cs" />
+    <Compile Include="PowerShell\Commands\GetIncogMutexCommand.cs" />
+    <Compile Include="PowerShell\Commands\SetIncogMutexCommand.cs" />
     <Compile Include="PowerShell\Commands\GetIncogFileSystemCommand.cs" />
     <Compile Include="PowerShell\Commands\SetIncogFileSystemCommand.cs" />
     <Compile Include="PowerShell\Commands\GetIncogImageCommand.cs" />
