@@ -20,18 +20,16 @@ Features
 ========
 
 // Channel commands -- Covert Channels and Communications
-IncogLookup - DNS
-IncogNamedPipe - Windows DCE/RPC
-IncogPing - ICMP
-IncogWebServer - HTTP
-Netcat - Any TCP or UDP port
+- IncogLookup - DNS
+- IncogNamedPipe - Windows DCE/RPC
+- IncogPing - ICMP
+- IncogWebServer - HTTP
+- Netcat - Any TCP or UDP port
 
 // Media commands -- Steganography and Files
-IncogFileSystem - Alternate Data Streams
-IncogImage - Bitmap with Least Significant Bit (LSB)
-IncogMutex - Memory Mapped Files / Mutex
-IncogWebPage - HTML
-
-
+- IncogFileSystem - Alternate Data Streams
+- IncogImage - Bitmap with Least Significant Bit (LSB)
+- IncogMutex - Memory Mapped Files / Mutex
+- IncogWebPage - HTML
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/299f7cdbf2cc7f8abcee60a8bca8a270 "githalytics.com")](http://githalytics.com/SimWitty/Incog)
