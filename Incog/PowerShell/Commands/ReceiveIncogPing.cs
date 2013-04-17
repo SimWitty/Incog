@@ -2,6 +2,8 @@
 //     Copyright © 2013 and distributed under the BSD license.
 // </copyright>
 
+// Source Boston 2013 Demo
+
 namespace Incog.PowerShell.Commands
 {
     using System;

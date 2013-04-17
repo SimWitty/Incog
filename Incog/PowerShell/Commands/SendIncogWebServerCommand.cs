@@ -2,6 +2,8 @@
 //     Copyright © 2013 and distributed under the BSD license.
 // </copyright>
 
+// Source Boston 2013 Demo
+
 namespace Incog.PowerShell.Commands
 {
     using System;
@@ -19,7 +21,14 @@ namespace Incog.PowerShell.Commands
         Incog.PowerShell.Nouns.IncogWebServer)]
     public class SendIncogWebServerCommand : Incog.PowerShell.Automation.ChannelCommand
     {
+        /// <summary>
+        /// Incog Web Server.
+        /// </summary>
         private HttpServer server;
+
+        /// <summary>
+        /// Thread executing the Incog Web Server.
+        /// </summary>
         private Thread thread;
 
         /// <summary>

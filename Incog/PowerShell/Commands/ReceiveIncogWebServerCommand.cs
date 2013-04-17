@@ -2,6 +2,8 @@
 //     Copyright © 2013 and distributed under the BSD license.
 // </copyright>
 
+// Source Boston 2013 Demo
+
 namespace Incog.PowerShell.Commands
 {
     using System;
@@ -23,6 +25,9 @@ namespace Incog.PowerShell.Commands
         Incog.PowerShell.Nouns.IncogWebServer)]
     public class ReceiveIncogWebServerCommand : Incog.PowerShell.Automation.ChannelCommand
     {
+        /// <summary>
+        /// URL Website links used to pull pages from the Incog Web Server.
+        /// </summary>
         private Uri[] links;
 
         /// <summary>

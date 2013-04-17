@@ -54,13 +54,13 @@ namespace Incog.PowerShell.Commands
         {         
             //// Open a Memory Mapped File without an actual file
 
-            string MemoryMappedName = string.Concat("Global\\", this.Mutex); // mappedName
-            string MemoryMutexName = string.Concat("Global\\{0}", this.Mutex, "-mutex"); // mutexName
+            string memoryMappedName = string.Concat("Global\\", this.Mutex); // mappedName
+            string memoryMutexName = string.Concat("Global\\{0}", this.Mutex, "-mutex"); // mutexName
             
             MemoryMappedFile map;
             try
             {
-                map = MemoryMappedFile.OpenExisting(MemoryMappedName);
+                map = MemoryMappedFile.OpenExisting(memoryMappedName);
             }
             catch (Exception ex)
             {
@@ -69,7 +69,7 @@ namespace Incog.PowerShell.Commands
             }
 
             // Open a existing mutex and prepare to receive
-            Mutex mutex = System.Threading.Mutex.OpenExisting(MemoryMutexName);
+            Mutex mutex = System.Threading.Mutex.OpenExisting(memoryMutexName);
             mutex.WaitOne();
 
             // Read the memory map and release the mutex

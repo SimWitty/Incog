@@ -7,8 +7,8 @@ namespace Incog.PowerShell.Commands
     using System;
     using System.Management.Automation;
     using Incog.Tools; // ChannelTools
-    using SimWitty.Library.Interop; // AlternateDataStream
     using SimWitty.Library.Core.Encrypting; // Cryptkeeper
+    using SimWitty.Library.Interop; // AlternateDataStream
 
     /// <summary>
     /// Set an incognito message in the file system using NTFS Alternate Data Streams.

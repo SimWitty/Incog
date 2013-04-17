@@ -8,9 +8,9 @@ namespace Incog.PowerShell.Commands
     using System.IO;
     using System.IO.MemoryMappedFiles;
     using System.Management.Automation;
+    using System.Runtime.Remoting.Lifetime; // ILease
     using System.Security.AccessControl; // MutexAccessRule
     using System.Security.Principal; // SecurityIdentifier
-    using System.Runtime.Remoting.Lifetime; // ILease
     using System.Threading; // Mutex
     using Incog.Messaging; // IncogStream
     using Incog.Tools; // ChannelTools

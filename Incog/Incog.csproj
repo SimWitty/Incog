@@ -101,6 +101,9 @@
     <Compile Include="Tools\ConsoleTools.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\SteganographySampleImage.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
