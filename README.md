@@ -16,5 +16,22 @@ What it is not
 
 Incog is not designed to be used for a penetration test or for facilitating a security breach. It does not evade anti-virus software, or otherwise conceal its actions. #incog is strictly meant for opening covert channels and testing defenses against said channels.
 
+Features
+========
+
+// Channel commands -- Covert Channels and Communications
+IncogLookup - DNS
+IncogNamedPipe - Windows DCE/RPC
+IncogPing - ICMP
+IncogWebServer - HTTP
+Netcat - Any TCP or UDP port
+
+// Media commands -- Steganography and Files
+IncogFileSystem - Alternate Data Streams
+IncogImage - Bitmap with Least Significant Bit (LSB)
+IncogMutex - Memory Mapped Files / Mutex
+IncogWebPage - HTML
+
+
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/299f7cdbf2cc7f8abcee60a8bca8a270 "githalytics.com")](http://githalytics.com/SimWitty/Incog)
